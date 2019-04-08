@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
 
   recuerdame = false;
   email: string;
+  formRecuperarContrasenia = false;
 
   constructor(public router: Router,
               public _usuarioService: UsuarioService) { }
@@ -40,6 +41,14 @@ export class LoginComponent implements OnInit {
     .subscribe(() => {
       this.router.navigate(['/dashboard']);
     });
+  }
+
+  recuperarContrasenia(forma: NgForm) {
+    if (forma.invalid) {
+      return;
+    }
+    this.formRecuperarContrasenia = false;
+
   }
 
 }

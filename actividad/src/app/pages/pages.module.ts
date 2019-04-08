@@ -15,13 +15,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 // import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
-// import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
+import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
 import { BuscadorComponent } from './buscador/buscador.component';
 import { ActividadComponent } from './actividades/actividad.component';
 import { ProyectosComponent } from './proyectos/proyectos.component';
 import { ProyectoComponent } from './proyectos/proyecto.component';
 import { UsuarioComponent } from './usuarios/usuario.component';
 import { ActividadesComponent } from './actividades/actividades.component';
+import { ActualizarContraseniaComponent } from './usuarios/actualizar-contrasenia.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { ActividadesComponent } from './actividades/actividades.component';
     DashboardComponent,
     ProfileComponent,
     UsuariosComponent,
-    // ModalUploadComponent,
+    ModalUploadComponent,
     ProyectosComponent,
     ProyectoComponent,
     UsuariosComponent,
@@ -37,7 +38,8 @@ import { ActividadesComponent } from './actividades/actividades.component';
     ActividadComponent,
     ActividadesComponent,
     BuscadorComponent,
-    ActividadComponent
+    ActividadComponent,
+    ActualizarContraseniaComponent
   ],
   exports: [
     // PagesComponent,

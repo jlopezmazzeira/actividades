@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators/';
 import swal from 'sweetalert';
 import { throwError } from 'rxjs';
 import { Usuario } from '../../models/usuario.model';
+import { SubirArchivoService } from '../subirArchivo/subir-archivo.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,10 @@ export class UsuarioService {
   menu: any[] = [];
 
   constructor(public router: Router,
-              public http: HttpClient) { }
+              public http: HttpClient,
+              public _subirArchivoService: SubirArchivoService) {
+  this.cargarStorage();
+  }
 
   estaLogueado() {
     return ( this.token.length > 5 ) ? true : false;
@@ -97,5 +101,73 @@ export class UsuarioService {
     this.router.navigate(['/login']);
   }
 
+  crearUsuario(usuario: Usuario) {
+    const url = URL_SERVICIOS + '/usuario';
+
+    return this.http.post(url, usuario)
+    .pipe(map((resp: any) => {
+      swal('Usuario creado', usuario.correo, 'success');
+      return resp.usuario;
+    }),
+    catchError( err => {
+      swal(err.error.mensaje, err.error.errors.message, 'error');
+        return throwError(err);
+    }));
+  }
+
+  actualizarUsuario(usuario: Usuario) {
+    let url = URL_SERVICIOS + '/usuario/' + usuario._id;
+    url += '?token=' + this.token;
+
+    return this.http.put(url, usuario).pipe(map((resp: any) => {
+
+      if (usuario._id === this.usuario._id) {
+        const usuarioDB: Usuario = resp.usuario;
+        this.guardarStorage(resp.usuario._id, this.token, resp.usuario, this.menu);
+      }
+
+      swal('Usuario actualizado', usuario.nombre, 'success');
+      return true;
+    }),
+    catchError( err => {
+      swal(err.error.mensaje, err.error.errors.message, 'error');
+        return throwError(err);
+    }));
+  }
+
+  buscarUsuario(termino: string) {
+    const url = URL_SERVICIOS + '/busqueda/coleccion/usuarios/' + termino;
+
+    return this.http.get(url)
+      .pipe(map((resp: any) => {
+        return resp.usuarios;
+      }));
+  }
+
+  borrarUsuario(id: string) {
+    let url = URL_SERVICIOS + '/usuario/' + id;
+    url += '?token=' + this.token;
+    // Cuando no quede un usuario en la lista regresar al listado principal
+    return this.http.delete(url).pipe(map((resp: any) => {
+      swal('Usuario borrado', 'El usuario a sido eliminado correctamente', 'success');
+      return true;
+    }));
+  }
+
+  cambiarImagen(archivo: File, id: string) {
+    this._subirArchivoService.subirArchivo(archivo, 'usuarios', id)
+    .then( (resp: any) => {
+      this.usuario.img = resp.usuario.img;
+
+      swal('Imagen actualizada', this.usuario.nombre, 'success');
+      this.guardarStorage(id, this.token, this.usuario, this.menu);
+      return true;
+    })
+    .catch( resp => {
+      console.log(resp);
+    });
+  }
+
+  actualizarContraseña() { }
 
 }

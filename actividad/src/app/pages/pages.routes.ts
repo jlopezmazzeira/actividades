@@ -10,6 +10,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { BuscadorComponent } from './buscador/buscador.component';
 import { ProyectosComponent } from './proyectos/proyectos.component';
 import { ActividadesComponent } from './actividades/actividades.component';
+import { ActualizarContraseniaComponent } from './usuarios/actualizar-contrasenia.component';
 
 export const pagesRoutes: Routes = [
   {
@@ -20,6 +21,7 @@ export const pagesRoutes: Routes = [
   },
   // { path: 'account-settings', component: AccoutSettingsComponent, data: {titulo: 'Ajustes del Tema'} },
   { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de usuario'} },
+  { path: 'actualizar-contrasenia', component: ActualizarContraseniaComponent, data: { titulo: 'Actualizar contraseña'} },
   { path: 'busqueda/:termino', component: BuscadorComponent, data: { titulo: 'Buscador'} },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   // Mantenimientos
