@@ -7,8 +7,10 @@ import { LoginGuard, VerificaTokenGuard } from '../services/services.index';
 import { AdminGuard } from '../services/services.index';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { UsuarioComponent } from './usuarios/usuario.component';
 import { BuscadorComponent } from './buscador/buscador.component';
 import { ProyectosComponent } from './proyectos/proyectos.component';
+import { ProyectoComponent } from './proyectos/proyecto.component';
 import { ActividadesComponent } from './actividades/actividades.component';
 import { ActualizarContraseniaComponent } from './usuarios/actualizar-contrasenia.component';
 
@@ -31,15 +33,28 @@ export const pagesRoutes: Routes = [
     canActivate: [ AdminGuard ],
     data: {titulo: 'Mantenimiento de Usuarios'}
   },
+  { 
+    path: 'usuario/:id', 
+    component: UsuarioComponent,
+    canActivate: [ AdminGuard ],
+    data: {titulo: 'Usuario'}
+  },
   {
     path: 'proyectos',
     component: ProyectosComponent,
     canActivate: [ AdminGuard ],
     data: {titulo: 'Mantenimiento de Proyectos'}
   },
+  { 
+    path: 'proyecto/:id', 
+    component: ProyectoComponent,
+    canActivate: [ AdminGuard ],
+    data: {titulo: 'Proyecto'}
+  },
   {
     path: 'actividades',
     component: ActividadesComponent,
+    canActivate: [ AdminGuard ],
     data: {titulo: 'Mantenimiento de Actividades'}
   }
 ];

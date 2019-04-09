@@ -12,9 +12,9 @@ import { Actividad } from '../../models/actividad.model';
 })
 export class ActividadService {
 
-  constructor() { }
+  constructor(public http: HttpClient) { }
 
-  crearActividad() {
+  crearActividad(nombre: string) {
 
   }
 
@@ -26,7 +26,10 @@ export class ActividadService {
 
   }
 
-  cargarPActividad() {
+  cargarActividades(desde: number = 0) {
+    const url = URL_SERVICIOS + '/actividad?desde=' + desde;
+
+    return this.http.get(url);
 
   }
 

@@ -16,7 +16,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { BuscadorComponent } from './buscador/buscador.component';
-import { ActividadComponent } from './actividades/actividad.component';
 import { ProyectosComponent } from './proyectos/proyectos.component';
 import { ProyectoComponent } from './proyectos/proyecto.component';
 import { UsuarioComponent } from './usuarios/usuario.component';
@@ -33,10 +32,8 @@ import { ActualizarContraseniaComponent } from './usuarios/actualizar-contraseni
     ProyectoComponent,
     UsuariosComponent,
     UsuarioComponent,
-    ActividadComponent,
     ActividadesComponent,
     BuscadorComponent,
-    ActividadComponent,
     ActualizarContraseniaComponent
   ],
   exports: [

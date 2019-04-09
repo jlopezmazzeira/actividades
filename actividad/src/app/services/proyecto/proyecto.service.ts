@@ -12,7 +12,7 @@ import { Proyecto } from '../../models/proyecto.model';
 })
 export class ProyectoService {
 
-  constructor() { }
+  constructor(public http: HttpClient) { }
 
   crearProyecto() {
 
@@ -26,8 +26,10 @@ export class ProyectoService {
 
   }
 
-  cargarProyectos() {
+  cargarProyectos(desde: number = 0) {
+    const url = URL_SERVICIOS + '/proyecto?desde=' + desde;
 
+    return this.http.get(url);
   }
 
   eliminarProyecto() {

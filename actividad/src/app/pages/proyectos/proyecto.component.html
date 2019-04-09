@@ -1,3 +1,26 @@
-<p>
-  proyecto works!
-</p>
+<div class="row animated fadeIn">
+    <div class="col-md-6">
+        <div class="card card-body">
+            <h3 class="box-title m-b-0">Proyecto: {{ proyecto.nombre }}</h3>
+            <div class="row">
+                <div class="col-sm-12 col-xs-12">
+                    <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarProyecto(f)">
+                        <div class="form-group">
+                            <label>Código del proyecto</label>
+                            <input [(ngModel)]="proyecto.codigo" name="codigo" type="text" class="form-control" placeholder="Código del proyecto" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nombre del proyecto</label>
+                            <input [(ngModel)]="proyecto.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del proyecto" required>
+                        </div>
+                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+                      <i class="fa fa-save"></i>
+                      Guardar
+                    </button>
+                        <a [routerLink]="['/proyectos']" class="btn btn-inverse waves-effect waves-light">Cancelar</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
