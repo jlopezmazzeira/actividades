@@ -1,3 +1,28 @@
-<p>
-  actualizar-contrasenia works!
-</p>
+<div class="row animated fadeIn">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <form ngNativeValidate #f="ngForm" (ngSubmit)="guardar(f.value)" class="form p-t-20">
+                    <div class="form-group">
+                        <label>Contraseña</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-key"></i></div>
+                            <input name="nombre" type="password" class="form-control" required placeholder="Contraseña">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmar contraseña</label>
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="ti-key"></i></div>
+                            <input name="email" type="password" class="form-control" required placeholder="Confirmar contraseña">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+                  <i class="fa fa-save"></i> 
+                  Guardar
+                </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

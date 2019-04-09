@@ -80,7 +80,7 @@ function obtenerMenu(ROLE) {
             titulo: 'Mantenimientos',
             icono: 'mdi mdi-folder-lock-open',
             submenu: [
-                { titulo: 'Actvidades', url: '/actividades' },
+                { titulo: 'Actividades', url: '/actividades' },
                 { titulo: 'Proyectos', url: '/proyectos' }
             ]
         }
