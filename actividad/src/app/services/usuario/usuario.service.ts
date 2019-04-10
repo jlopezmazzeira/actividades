@@ -176,4 +176,14 @@ export class UsuarioService {
 
   actualizarContraseña() { }
 
+  cargarUsuario(id: string) {
+    let url = URL_SERVICIOS + '/usuario/' + id;
+    url += '?token=' + this.token;
+
+    return this.http.get(url).pipe(map((resp: any) => {
+      return resp.usuario;
+    }));
+
+  }
+
 }

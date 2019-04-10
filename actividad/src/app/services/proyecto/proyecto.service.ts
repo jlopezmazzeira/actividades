@@ -6,13 +6,15 @@ import { map, catchError } from 'rxjs/operators/';
 import swal from 'sweetalert';
 import { throwError } from 'rxjs';
 import { Proyecto } from '../../models/proyecto.model';
+import { UsuarioService } from '../usuario/usuario.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProyectoService {
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient,
+              public _serviceUsuario: UsuarioService) { }
 
   crearProyecto() {
 
@@ -41,7 +43,17 @@ export class ProyectoService {
   }
 
   asignarActividadesProyecto() {
-    
+
+  }
+
+  cargarProyecto(id: string) {
+    let url = URL_SERVICIOS + '/proyecto/' + id;
+    url += '?token=' + this._serviceUsuario.token;
+
+    return this.http.get(url).pipe(map((resp: any) => {
+      return resp.proyecto;
+    }));
+
   }
 
 

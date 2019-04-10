@@ -72,7 +72,23 @@ export class ActividadesComponent implements OnInit {
   }
 
   borrarActividad(actividad: Actividad) {
-    
+
+  }
+
+  buscarActividad(termino: string) {
+
+    if (termino.length <= 0) {
+      this.cargarActividades();
+      return;
+    }
+
+    this.cargando = true;
+
+    /*this._usuarioService.buscarUsuario(termino)
+    .subscribe((usuarios: Usuario[]) => {
+        this.usuarios = usuarios;
+        this.cargando = false;
+    });*/
   }
 
 }

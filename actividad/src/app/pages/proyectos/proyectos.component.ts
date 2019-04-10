@@ -56,4 +56,20 @@ export class ProyectosComponent implements OnInit {
 
   }
 
+  buscarProyecto(termino: string) {
+
+    if (termino.length <= 0) {
+      this.cargarProyectos();
+      return;
+    }
+
+    this.cargando = true;
+
+    /*this._usuarioService.buscarUsuario(termino)
+    .subscribe((usuarios: Usuario[]) => {
+        this.usuarios = usuarios;
+        this.cargando = false;
+    });*/
+  }
+
 }

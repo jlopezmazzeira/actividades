@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProyectoService } from '../../services/services.index';
+import { Proyecto } from '../../models/proyecto.model';
 
 @Component({
   selector: 'app-proyecto',
@@ -9,6 +10,8 @@ import { ProyectoService } from '../../services/services.index';
   styles: []
 })
 export class ProyectoComponent implements OnInit {
+
+  proyecto: Proyecto = new Proyecto('', '', '');
 
   constructor(public router: Router,
               public activatedRoute: ActivatedRoute,
@@ -26,12 +29,12 @@ export class ProyectoComponent implements OnInit {
   }
 
   cargarProyecto(id: string) {
-    /*this._medicoService.cargarMedico(id)
-    .subscribe( medico => {
-      this.medico = medico;
-      this.medico.hospital = medico.hospital._id;
-      this.cambioHospital(this.medico.hospital);
-    });*/
+    this._serviceProyecto.cargarProyecto(id)
+    .subscribe( proyecto => {
+      this.proyecto = proyecto;
+      // this.medico.hospital = medico.hospital._id;
+      // this.cambioHospital(this.medico.hospital);
+    });
   }
 
   guardarProyecto(f: NgForm) {
