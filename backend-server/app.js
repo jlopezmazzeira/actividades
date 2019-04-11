@@ -30,6 +30,7 @@ var horasActividadesRoutes = require('./routes/horasActividades');
 var busquedaRoutes = require('./routes/busqueda');
 var uploadRoutes = require('./routes/upload');
 var imagenesRoutes = require('./routes/imagenes');
+var emailRoutes = require('./routes/email');
 
 //Conexión DB
 var url = "mongodb://localhost:27017/actividadesDB";
@@ -51,6 +52,7 @@ app.use('/horasActividades', horasActividadesRoutes);
 app.use('/busqueda', busquedaRoutes);
 app.use('/upload', uploadRoutes);
 app.use('/img', imagenesRoutes);
+app.use('/email', emailRoutes);
 app.use('/', appRoutes);
 
 //Escuchar Peticiones

@@ -47,8 +47,12 @@ export class LoginComponent implements OnInit {
     if (forma.invalid) {
       return;
     }
-    this.formRecuperarContrasenia = false;
 
+    this._usuarioService.recuperarContrasenia(forma.value.emailRecuperar)
+    .subscribe(() => {
+      this.formRecuperarContrasenia = false;
+    });
+    
   }
 
 }

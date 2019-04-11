@@ -214,4 +214,17 @@ export class UsuarioService {
 
   }
 
+  recuperarContrasenia(correo: string) {
+    const url = URL_SERVICIOS + '/email';
+
+    return this.http.post(url, {correo}).pipe(map((resp: any) => {
+      swal('Recuperar contraseña', 'Se le ha enviado un mail', 'success');
+      return true;
+    }),
+    catchError( err => {
+      swal(err.error.mensaje, err.error.errors.message, 'error');
+        return throwError(err);
+    }));
+  }
+
 }
