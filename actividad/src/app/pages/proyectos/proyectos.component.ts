@@ -48,12 +48,23 @@ export class ProyectosComponent implements OnInit {
     this.cargarProyectos();
   }
 
-  guardarProyecto(proyecto: Proyecto) {
-
-  }
-
   borrarProyecto(proyecto: Proyecto) {
-
+    swal({
+      title: '¿Esta seguro?',
+      text: 'Esta a punto de borrar el proyecto: ' + proyecto.nombre,
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((borrar) => {
+      if (borrar) {
+        this._serviceProyecto.eliminarProyecto(proyecto)
+          .subscribe(() => {
+            this.desde = 0;
+            this.cargarProyectos();
+        });
+      }
+    });
   }
 
   buscarProyecto(termino: string) {
@@ -65,11 +76,11 @@ export class ProyectosComponent implements OnInit {
 
     this.cargando = true;
 
-    /*this._usuarioService.buscarUsuario(termino)
-    .subscribe((usuarios: Usuario[]) => {
-        this.usuarios = usuarios;
+    this._serviceProyecto.buscarProyecto(termino)
+      .subscribe((proyectos: Proyecto[]) => {
+        this.proyectos = proyectos;
         this.cargando = false;
-    });*/
+    });
   }
 
 }

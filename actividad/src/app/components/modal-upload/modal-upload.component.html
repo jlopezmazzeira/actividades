@@ -3,7 +3,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">Cambiar imagen</h5>
                     <button (click)="cerrarModal()" type="button" class="close" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -11,7 +11,7 @@
                 <div class="modal-body text-center">
                     <img *ngIf="!imagenTemp" [src]="'xxx' | imagen" class="w150">
                     <img *ngIf="imagenTemp" [src]="imagenTemp" class="w150">
-                    <input (change)="seleccionImagen($event.target.files[0])" type="file" class="form-control">
+                    <input #myFile (change)="seleccionImagen($event)" type="file" class="form-control">
                 </div>
                 <div class="modal-footer">
                     <button (click)="subirImagen()" [disabled]="!imagenTemp" type="button" class="btn btn-primary">Subir imagen</button>

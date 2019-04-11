@@ -62,17 +62,33 @@ export class ActividadesComponent implements OnInit {
         return;
       }
 
-      /*this._serviceActividad.crearActividad(valor)
-      .subscribe(() => this.cargarActividades());*/
+      this._serviceActividad.crearActividad(valor)
+      .subscribe(() => this.cargarActividades());
     });
   }
 
   guardarActividad(actividad: Actividad) {
-
+    this._serviceActividad.actualizarActividad(actividad)
+      .subscribe(() => this.cargarActividades());
   }
 
   borrarActividad(actividad: Actividad) {
-
+    swal({
+      title: '¿Esta seguro?',
+      text: 'Esta a punto de borrar la actividad: ' + actividad.nombre,
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((borrar) => {
+      if (borrar) {
+        this._serviceActividad.eliminarActividad(actividad)
+          .subscribe(() => {
+            this.desde = 0;
+            this.cargarActividades();
+        });
+      }
+    });
   }
 
   buscarActividad(termino: string) {
@@ -84,11 +100,11 @@ export class ActividadesComponent implements OnInit {
 
     this.cargando = true;
 
-    /*this._usuarioService.buscarUsuario(termino)
-    .subscribe((usuarios: Usuario[]) => {
-        this.usuarios = usuarios;
+    this._serviceActividad.buscarActividad(termino)
+      .subscribe((actividades: Actividad[]) => {
+        this.actividades = actividades;
         this.cargando = false;
-    });*/
+    });
   }
 
 }

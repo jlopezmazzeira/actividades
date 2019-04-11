@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProyectoService } from '../../services/services.index';
 import { Proyecto } from '../../models/proyecto.model';
+declare var swal: any;
 
 @Component({
   selector: 'app-proyecto',
@@ -42,11 +43,11 @@ export class ProyectoComponent implements OnInit {
       return;
     }
 
-    /*this._medicoService.guardarMedico(this.medico)
-    .subscribe(medico => {
-      this.medico._id = medico._id;
-      this.router.navigate(['/medico', medico._id]);
-    });*/
+    this._serviceProyecto.guardarProyecto(this.proyecto)
+    .subscribe(proyecto => {
+      this.proyecto._id = proyecto._id;
+      this.router.navigate(['/proyectos']);
+    });
 
   }
 

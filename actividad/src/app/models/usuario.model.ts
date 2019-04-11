@@ -3,7 +3,7 @@ export class Usuario {
         public nombre: string,
         public correo: string,
         public password: string,
-        public username?: string,
+        public username: string,
         public img?: string,
         public role?: string,
         public _id?: string,

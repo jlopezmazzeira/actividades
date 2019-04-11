@@ -11,7 +11,7 @@ import { NgForm } from '@angular/forms';
 })
 export class UsuarioComponent implements OnInit {
 
-  usuario: Usuario = new Usuario('', '', '');
+  usuario: Usuario = new Usuario('', '', '', '');
 
   constructor(public router: Router,
               public activatedRoute: ActivatedRoute,
@@ -42,11 +42,15 @@ export class UsuarioComponent implements OnInit {
       return;
     }
 
-    /*this._medicoService.guardarMedico(this.medico)
-    .subscribe(medico => {
-      this.medico._id = medico._id;
-      this.router.navigate(['/medico', medico._id]);
-    });*/
+    if (!this.usuario._id) {
+      this.usuario.password = '123456';
+    }
+
+    this._serviceUsuario.guardarUsuario(this.usuario)
+        .subscribe(usuario => {
+          this.usuario._id = usuario._id;
+          this.router.navigate(['/usuarios']);
+        });
 
   }
 

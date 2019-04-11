@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
 import { UsuarioService } from 'src/app/services/services.index';
+declare var swal: any;
 
 @Component({
   selector: 'app-profile',
@@ -22,6 +23,7 @@ export class ProfileComponent implements OnInit {
 
   guardar(usuario: Usuario) {
     this.usuario.nombre = usuario.nombre;
+    this.usuario.username = usuario.username;
 
     this._usuarioService.actualizarUsuario(usuario)
     .subscribe();

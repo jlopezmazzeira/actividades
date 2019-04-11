@@ -101,22 +101,38 @@ export class UsuarioService {
     this.router.navigate(['/login']);
   }
 
-  crearUsuario(usuario: Usuario) {
-    const url = URL_SERVICIOS + '/usuario';
+  guardarUsuario(usuario: Usuario) {
+    let url = URL_SERVICIOS + '/usuario';
+    if (usuario._id) {
+      url += '/' + usuario._id;
+      url += '?token=' + this.token;
 
-    return this.http.post(url, usuario)
-    .pipe(map((resp: any) => {
-      swal('Usuario creado', usuario.correo, 'success');
-      return resp.usuario;
-    }),
-    catchError( err => {
-      swal(err.error.mensaje, err.error.errors.message, 'error');
-        return throwError(err);
-    }));
+      return this.http.put(url, usuario).pipe(map((resp: any) => {
+
+        swal('Usuario actualizado', usuario.nombre, 'success');
+        return true;
+      }),
+      catchError( err => {
+        swal(err.error.mensaje, err.error.errors.message, 'error');
+          return throwError(err);
+      }));
+
+    } else {
+      return this.http.post(url, usuario)
+            .pipe(map((resp: any) => {
+              swal('Usuario creado', usuario.correo, 'success');
+              return resp.usuario;
+            }),
+            catchError( err => {
+              swal(err.error.mensaje, err.error.errors.message, 'error');
+                return throwError(err);
+            }));
+    }
+
   }
 
   actualizarUsuario(usuario: Usuario) {
-    let url = URL_SERVICIOS + '/usuario/' + usuario._id;
+    let url = URL_SERVICIOS + '/usuario/' + this.usuario._id;
     url += '?token=' + this.token;
 
     return this.http.put(url, usuario).pipe(map((resp: any) => {
@@ -174,7 +190,19 @@ export class UsuarioService {
     return this.http.get(url);
   }
 
-  actualizarContraseña() { }
+  actualizarContrasenia(password: string) {
+    let url = URL_SERVICIOS + '/usuario/cambiar-password/' + this.usuario._id;
+    url += '?token=' + this.token;
+
+    return this.http.put(url, {password}).pipe(map((resp: any) => {
+      swal('Contraseña actualizada', '', 'success');
+      return true;
+    }),
+    catchError( err => {
+      swal(err.error.mensaje, err.error.errors.message, 'error');
+        return throwError(err);
+    }));
+  }
 
   cargarUsuario(id: string) {
     let url = URL_SERVICIOS + '/usuario/' + id;

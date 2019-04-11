@@ -52,10 +52,10 @@
                             <td>{{ usuario.username }}</td>
                             <td>{{ usuario.role }}</td>
                             <td>
-                                <button [routerLink]="['/usuario', usuario._id]" class="btn btn-primary">
+                                <button [routerLink]="['/usuario', usuario._id]" class="btn btn-primary" *ngIf="usuario._id !== this._usuarioService.usuario._id">
                                     <i class="fa fa-edit"></i>
                                 </button>
-                                <button (click)="borrarUsuario(usuario)" class="btn btn-danger ml-2">
+                                <button (click)="borrarUsuario(usuario)" class="btn btn-danger ml-2" *ngIf="usuario._id !== this._usuarioService.usuario._id">
                                   <i class="fa fa-trash-o"></i>
                               </button>
                             </td>

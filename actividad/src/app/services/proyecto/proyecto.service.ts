@@ -16,16 +16,37 @@ export class ProyectoService {
   constructor(public http: HttpClient,
               public _serviceUsuario: UsuarioService) { }
 
-  crearProyecto() {
+  guardarProyecto(proyecto: Proyecto) {
+    let url = URL_SERVICIOS + '/proyecto';
 
+    if (proyecto._id) {
+      // Actualizando
+      url += '/' + proyecto._id;
+      url += '?token=' + this._serviceUsuario.token;
+
+      return this.http.put(url, proyecto).pipe(map((resp: any) => {
+        swal('Proyecto actualizado', proyecto.nombre, 'success');
+        return resp.proyecto;
+      }));
+
+    } else {
+      // Creando
+      url += '?token=' + this._serviceUsuario.token;
+
+      return this.http.post(url, proyecto).pipe(map((resp: any) => {
+        swal('Proyeco creado', proyecto.nombre, 'success');
+        return resp.proyecto;
+      }));
+    }
   }
 
-  actualizarProyecto() {
+  buscarProyecto(termino: string) {
+    const url = URL_SERVICIOS + '/busqueda/coleccion/proyectos/' + termino;
 
-  }
-
-  buscarProyecto() {
-
+    return this.http.get(url)
+      .pipe(map((resp: any) => {
+        return resp.proyectos;
+      }));
   }
 
   cargarProyectos(desde: number = 0) {
@@ -34,8 +55,13 @@ export class ProyectoService {
     return this.http.get(url);
   }
 
-  eliminarProyecto() {
-
+  eliminarProyecto(proyecto: Proyecto) {
+    let url = URL_SERVICIOS + '/proyecto/' + proyecto._id;
+    url += '?token=' + this._serviceUsuario.token;
+    return this.http.delete(url).pipe(map((resp: any) => {
+      swal('Proyecto borrado', 'El proyecto a sido eliminado correctamente', 'success');
+      return true;
+    }));
   }
 
   asignarProyectoUsuario() {

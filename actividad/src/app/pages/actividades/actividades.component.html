@@ -34,12 +34,14 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <th>Nro</th>
                             <th>Nombre</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let actividad of actividades">
+                        <tr *ngFor="let actividad of actividades;let indice=index">
+                            <td>{{indice + 1}}</td>
                             <td>
                                 <input type="text" class="form-control" placeholder="Nombre de la actividad" [(ngModel)]="actividad.nombre" name="nombre">
                             </td>

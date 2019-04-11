@@ -81,7 +81,7 @@ export class UsuariosComponent implements OnInit {
 
     swal({
       title: '¿Esta seguro?',
-      text: 'Esta a punto de borrar a ' + usuario.nombre,
+      text: 'Esta a punto de borrar al usuario: ' + usuario.nombre,
       icon: 'warning',
       buttons: true,
       dangerMode: true,
@@ -90,6 +90,7 @@ export class UsuariosComponent implements OnInit {
       if (borrar) {
         this._usuarioService.borrarUsuario(usuario._id)
         .subscribe(borrado => {
+          this.desde = 0;
           this.cargarUsuarios();
         });
       }
