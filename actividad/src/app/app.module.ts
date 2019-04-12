@@ -15,12 +15,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { PagesComponent } from './pages/pages.component';
 import { SharedModule } from './shared/shared.module';
+import { RecoverPasswordComponent } from './login/recover-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    PagesComponent
+    PagesComponent,
+    RecoverPasswordComponent
   ],
   imports: [
     BrowserModule,

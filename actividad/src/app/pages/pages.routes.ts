@@ -33,8 +33,8 @@ export const pagesRoutes: Routes = [
     canActivate: [ AdminGuard ],
     data: {titulo: 'Mantenimiento de Usuarios'}
   },
-  { 
-    path: 'usuario/:id', 
+  {
+    path: 'usuario/:id',
     component: UsuarioComponent,
     canActivate: [ AdminGuard ],
     data: {titulo: 'Usuario'}
@@ -45,8 +45,8 @@ export const pagesRoutes: Routes = [
     canActivate: [ AdminGuard ],
     data: {titulo: 'Mantenimiento de Proyectos'}
   },
-  { 
-    path: 'proyecto/:id', 
+  {
+    path: 'proyecto/:id',
     component: ProyectoComponent,
     canActivate: [ AdminGuard ],
     data: {titulo: 'Proyecto'}
