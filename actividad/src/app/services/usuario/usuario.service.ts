@@ -227,4 +227,29 @@ export class UsuarioService {
     }));
   }
 
+  recoverContrasenia(id: string, password: string) {
+    const url = URL_SERVICIOS + '/login/recover-password/' + id;
+
+    return this.http.put(url, {password}).pipe(map((resp: any) => {
+      this.router.navigate(['/login']);
+      swal('Contraseña actualizada', '', 'success');
+    }),
+    catchError( err => {
+      swal(err.error.mensaje, err.error.errors.message, 'error');
+        return throwError(err);
+    }));
+  }
+
+  verificarTokenEmail(id: string, token: string) {
+    const url = URL_SERVICIOS + '/login/verificar-token/' + id;
+    return this.http.post(url, {token}).pipe(map((resp: any) => {
+      return true;
+    }),
+    catchError( err => {
+      this.router.navigate(['/login']);
+      swal(err.error.mensaje, err.error.errors.message, 'error');
+        return throwError(err);
+    }));
+  }
+
 }

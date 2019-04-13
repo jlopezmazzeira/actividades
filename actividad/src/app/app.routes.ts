@@ -5,16 +5,11 @@ import { LoginComponent } from './login/login.component';
 import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
 import { PagesComponent } from './pages/pages.component';
 import { LoginGuard } from './services/guards/login.guard';
-import { RecoverGuard } from './services/guards/recover.guard';
-import { RecoverPasswordComponent } from './login/recover-password.component';
+import { RecoverComponent } from './login/recover.component';
 
 export const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  {
-    path: 'recover-password/:id/:token',
-    component: RecoverPasswordComponent,
-    canActivate: [RecoverGuard]
-  },
+  { path: 'recover/:id/:token', component: RecoverComponent },
   {
     path: '',
     component: PagesComponent,
