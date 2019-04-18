@@ -249,4 +249,8 @@ app.put('/asignar-actividades/:id', mdAutenticacion.verificaToken, (req, resp) =
 
 });
 
+// =====================================
+// Eliminar ACTIVIDAD PROYECTO
+// =====================================
+
 module.exports = app;

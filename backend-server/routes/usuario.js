@@ -310,4 +310,8 @@ app.put('/asignar-proyectos/:id', mdAutenticacion.verificaToken, (req, resp) => 
 
 });
 
+// =====================================
+// Eliminar PROYECTO ASIGNADO
+// =====================================
+
 module.exports = app;

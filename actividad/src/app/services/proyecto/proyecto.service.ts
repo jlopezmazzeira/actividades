@@ -64,13 +64,11 @@ export class ProyectoService {
     }));
   }
 
-  asignarProyectoUsuario() {
-
-  }
-
   asignarActividadesProyecto() {
 
   }
+
+  eliminarActividadAsignada () { }
 
   cargarProyecto(id: string) {
     let url = URL_SERVICIOS + '/proyecto/' + id;

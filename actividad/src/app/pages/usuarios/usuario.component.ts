@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UsuarioService } from '../../services/services.index';
+import { UsuarioService, ProyectoService } from '../../services/services.index';
 import { Usuario } from '../../models/usuario.model';
 import { NgForm } from '@angular/forms';
+import { Proyecto } from 'src/app/models/proyecto.model';
 
 @Component({
   selector: 'app-usuario',
@@ -12,15 +13,24 @@ import { NgForm } from '@angular/forms';
 export class UsuarioComponent implements OnInit {
 
   usuario: Usuario = new Usuario('', '', '', '');
+  mostrarProyectos = false;
+  proyectos: Proyecto[] = [];
+  proyectosUsuario: Proyecto[] = [];
+  desde = 0;
+  totalRegistros = 0;
+  cargando = true;
 
   constructor(public router: Router,
               public activatedRoute: ActivatedRoute,
-              public _serviceUsuario: UsuarioService) {
+              public _serviceUsuario: UsuarioService,
+              public _serviceProyecto: ProyectoService) {
     activatedRoute.params.subscribe( params => {
       const id = params['id'];
 
       if (id !== 'nuevo') {
         this.cargarUsuario(id);
+        this.cargarProyectos();
+        this.mostrarProyectos = true;
       }
     });
   }
@@ -52,6 +62,49 @@ export class UsuarioComponent implements OnInit {
           this.router.navigate(['/usuarios']);
         });
 
+  }
+
+  cargarProyectos() {
+    this.cargando = true;
+
+    this._serviceProyecto.cargarProyectos(this.desde).subscribe(
+      (resp: any) => {
+        this.totalRegistros = resp.total;
+        this.proyectos = resp.proyectos;
+        this.cargando = false;
+      });
+  }
+
+  cambiarDesde(valor: number) {
+    const desde = this.desde + valor;
+
+    if (desde >= this.totalRegistros) {
+      return;
+    }
+
+    if (desde < 0) {
+      return;
+    }
+
+    this.desde += valor;
+
+    this.cargarProyectos();
+  }
+
+  buscarProyecto(termino: string) {
+
+    if (termino.length <= 0) {
+      this.cargarProyectos();
+      return;
+    }
+
+    this.cargando = true;
+
+    this._serviceProyecto.buscarProyecto(termino)
+      .subscribe((proyectos: Proyecto[]) => {
+        this.proyectos = proyectos;
+        this.cargando = false;
+    });
   }
 
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ProyectoService } from '../../services/services.index';
+import { ProyectoService, ActividadService } from '../../services/services.index';
 import { Proyecto } from '../../models/proyecto.model';
+import { Actividad } from 'src/app/models/actividad.model';
 declare var swal: any;
 
 @Component({
@@ -13,15 +14,24 @@ declare var swal: any;
 export class ProyectoComponent implements OnInit {
 
   proyecto: Proyecto = new Proyecto('', '', '');
+  mostrarActividades = false;
+  actividades: Actividad[] = [];
+  actividadesProyecto: Actividad[] = [];
+  desde = 0;
+  totalRegistros = 0;
+  cargando = true;
 
   constructor(public router: Router,
               public activatedRoute: ActivatedRoute,
-              public _serviceProyecto: ProyectoService) {
+              public _serviceProyecto: ProyectoService,
+              public _serviceActividad: ActividadService) {
     activatedRoute.params.subscribe( params => {
       const id = params['id'];
 
       if (id !== 'nuevo') {
         this.cargarProyecto(id);
+        this.cargarActividades();
+        this.mostrarActividades = true;
       }
     });
   }
@@ -49,6 +59,49 @@ export class ProyectoComponent implements OnInit {
       this.router.navigate(['/proyectos']);
     });
 
+  }
+
+  cargarActividades() {
+    this.cargando = true;
+
+    this._serviceActividad.cargarActividades(this.desde).subscribe(
+      (resp: any) => {
+        this.totalRegistros = resp.total;
+        this.actividades = resp.actividades;
+        this.cargando = false;
+      });
+  }
+
+  cambiarDesde(valor: number) {
+    const desde = this.desde + valor;
+
+    if (desde >= this.totalRegistros) {
+      return;
+    }
+
+    if (desde < 0) {
+      return;
+    }
+
+    this.desde += valor;
+
+    this.cargarActividades();
+  }
+
+  buscarActividad(termino: string) {
+
+    if (termino.length <= 0) {
+      this.cargarActividades();
+      return;
+    }
+
+    this.cargando = true;
+
+    this._serviceActividad.buscarActividad(termino)
+      .subscribe((actividades: Actividad[]) => {
+        this.actividades = actividades;
+        this.cargando = false;
+    });
   }
 
 }

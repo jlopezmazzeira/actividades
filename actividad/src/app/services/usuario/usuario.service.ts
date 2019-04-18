@@ -252,4 +252,12 @@ export class UsuarioService {
     }));
   }
 
+  asignarProyectoUsuario() {
+
+  }
+
+  eliminarProyectoAsignado() {
+
+  }
+
 }
