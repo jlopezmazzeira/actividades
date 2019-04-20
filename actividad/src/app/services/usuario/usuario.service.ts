@@ -252,11 +252,17 @@ export class UsuarioService {
     }));
   }
 
-  asignarProyectoUsuario() {
+  asignarProyectoUsuario(id: string, proyectos: Array<String>) {
+    let url = URL_SERVICIOS + '/asignar-proyectos/' + id;
+    url += '?token=' + this.token;
 
+    return this.http.put(url, proyectos).pipe(map((resp: any) => {
+      swal('Proyectos asignados', resp.usuario.nombre, 'success');
+      return resp.usuario;
+    }));
   }
 
-  eliminarProyectoAsignado() {
+  eliminarProyectoAsignado(proyecto: string) {
 
   }
 

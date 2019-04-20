@@ -64,11 +64,17 @@ export class ProyectoService {
     }));
   }
 
-  asignarActividadesProyecto() {
+  asignarActividadesProyecto(id: string, actividades: Array<String>) {
+    let url = URL_SERVICIOS + '/asignar-actividades/' + id;
+    url += '?token=' + this._serviceUsuario.token;
 
+    return this.http.put(url, actividades).pipe(map((resp: any) => {
+      swal('Actividades asignadas', resp.proyecto.nombre, 'success');
+      return resp.proyecto;
+    }));
   }
 
-  eliminarActividadAsignada () { }
+  eliminarActividadAsignada(actividad: string) { }
 
   cargarProyecto(id: string) {
     let url = URL_SERVICIOS + '/proyecto/' + id;
