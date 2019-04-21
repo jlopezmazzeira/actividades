@@ -7,6 +7,7 @@ import { BreadcrumsComponent } from './breadcrums/breadcrums.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
+import { CalendarComponent } from '../components/calendar/calendar.component';
 
 // Pipes
 import { PipesModule } from '../pipes/pipes.module';
@@ -17,14 +18,16 @@ import { PipesModule } from '../pipes/pipes.module';
     BreadcrumsComponent,
     SidebarComponent,
     NopagefoundComponent,
-    ModalUploadComponent
+    ModalUploadComponent,
+    CalendarComponent
   ],
   exports: [
     HeaderComponent,
     BreadcrumsComponent,
     SidebarComponent,
     NopagefoundComponent,
-    ModalUploadComponent
+    ModalUploadComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,

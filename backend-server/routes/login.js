@@ -189,7 +189,7 @@ function obtenerMenu(ROLE) {
             icono: 'mdi mdi-gauge',
             submenu: [
                 { titulo: 'Dashboard', url: '/dashboard' },
-                { titulo: 'Actividades', url: '/dashboard' }
+                { titulo: 'Actividades', url: '/calendario' }
             ]
         },
         {
