@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styles: []
+  styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent implements OnInit {
 

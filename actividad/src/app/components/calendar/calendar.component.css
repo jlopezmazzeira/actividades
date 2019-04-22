@@ -1,1203 +1,775 @@
-/*!
- * FullCalendar v2.3.2 Stylesheet
- * Docs & License: http://fullcalendar.io/
- * (c) 2015 Adam Shaw
- */
-
-.fc {
-    direction: ltr;
-    text-align: left;
-}
-
-.fc-rtl {
-    text-align: right;
-}
-
-body .fc {
-    /* extra precedence to overcome jqui */
-    font-size: 1em;
-}
-
-
-/* Colors
---------------------------------------------------------------------------------------------------*/
-
-.fc-unthemed th,
-.fc-unthemed td,
-.fc-unthemed thead,
-.fc-unthemed tbody,
-.fc-unthemed .fc-divider,
-.fc-unthemed .fc-row,
-.fc-unthemed .fc-popover {
-    border-color: #ddd;
-}
-
-.fc-unthemed .fc-popover {
-    background-color: #fff;
-}
-
-.fc-unthemed .fc-divider,
-.fc-unthemed .fc-popover .fc-header {
-    background: #eee;
-}
-
-.fc-unthemed .fc-popover .fc-header .fc-close {
-    color: #666;
-}
-
-.fc-unthemed .fc-today {
-    background: #fcf8e3;
-}
-
-.fc-highlight {
-    /* when user is selecting cells */
-    background: #bce8f1;
-    opacity: .3;
-    filter: alpha(opacity=30);
-    /* for IE */
-}
-
-.fc-bgevent {
-    /* default look for background events */
-    background: rgb(143, 223, 130);
-    opacity: .3;
-    filter: alpha(opacity=30);
-    /* for IE */
-}
-
-.fc-nonbusiness {
-    /* default look for non-business-hours areas */
-    /* will inherit .fc-bgevent's styles */
-    background: #d7d7d7;
-}
-
-
-/* Icons (inline elements with styled text that mock arrow icons)
---------------------------------------------------------------------------------------------------*/
-
-.fc-icon {
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    line-height: 1em;
-    font-size: 1em;
+.cal-month-view .cal-header {
     text-align: center;
+    font-weight: bolder;
+}
+
+.cal-month-view .cal-header .cal-cell {
+    padding: 5px 0;
     overflow: hidden;
-    font-family: "Courier New", Courier, monospace;
-    /* don't allow browser text-selection */
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-
-/*
-Acceptable font-family overrides for individual icons:
-	"Arial", sans-serif
-	"Times New Roman", serif
-
-NOTE: use percentage font sizes or else old IE chokes
-*/
-
-.fc-icon:after {
-    position: relative;
-    margin: 0 -1em;
-    /* ensures character will be centered, regardless of width */
-}
-
-.fc-icon-left-single-arrow:after {
-    content: "\02039";
-    font-weight: bold;
-    font-size: 200%;
-    top: -7%;
-    left: 3%;
-}
-
-.fc-icon-right-single-arrow:after {
-    content: "\0203A";
-    font-weight: bold;
-    font-size: 200%;
-    top: -7%;
-    left: -3%;
-}
-
-.fc-icon-left-double-arrow:after {
-    content: "\000AB";
-    font-size: 160%;
-    top: -7%;
-}
-
-.fc-icon-right-double-arrow:after {
-    content: "\000BB";
-    font-size: 160%;
-    top: -7%;
-}
-
-.fc-icon-left-triangle:after {
-    content: "\25C4";
-    font-size: 125%;
-    top: 3%;
-    left: -2%;
-}
-
-.fc-icon-right-triangle:after {
-    content: "\25BA";
-    font-size: 125%;
-    top: 3%;
-    left: 2%;
-}
-
-.fc-icon-down-triangle:after {
-    content: "\25BC";
-    font-size: 125%;
-    top: 2%;
-}
-
-.fc-icon-x:after {
-    content: "\000D7";
-    font-size: 200%;
-    top: 6%;
-}
-
-
-/* Buttons (styled <button> tags, normalized to work cross-browser)
---------------------------------------------------------------------------------------------------*/
-
-.fc button {
-    /* force height to include the border and padding */
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    /* dimensions */
-    margin: 0;
-    height: 2.1em;
-    padding: 0 .6em;
-    /* text & cursor */
-    font-size: 1em;
-    /* normalize */
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    display: block;
     white-space: nowrap;
-    cursor: pointer;
 }
 
-
-/* Firefox has an annoying inner border */
-
-.fc button::-moz-focus-inner {
-    margin: 0;
-    padding: 0;
-}
-
-.fc-state-default {
-    /* non-theme */
+.cal-month-view .cal-days {
     border: 1px solid;
-}
-
-.fc-state-default.fc-corner-left {
-    /* non-theme */
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-}
-
-.fc-state-default.fc-corner-right {
-    /* non-theme */
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-}
-
-
-/* icons in buttons */
-
-.fc button .fc-icon {
-    /* non-theme */
-    position: relative;
-    top: -0.05em;
-    /* seems to be a good adjustment across browsers */
-    margin: 0 .2em;
-    vertical-align: middle;
-}
-
-
-/*
-  button states
-  borrowed from twitter bootstrap (http://twitter.github.com/bootstrap/)
-*/
-
-.fc-state-default {
-    background-color: #f5f5f5;
-    background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-    background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-    background-repeat: repeat-x;
-    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    color: #333;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.fc-state-hover,
-.fc-state-down,
-.fc-state-active,
-.fc-state-disabled {
-    color: #333333;
-    background-color: #e6e6e6;
-}
-
-.fc-state-hover {
-    color: #333333;
-    text-decoration: none;
-    background-position: 0 -15px;
-    -webkit-transition: background-position 0.1s linear;
-    -moz-transition: background-position 0.1s linear;
-    -o-transition: background-position 0.1s linear;
-    transition: background-position 0.1s linear;
-}
-
-.fc-state-down,
-.fc-state-active {
-    background-color: #cccccc;
-    background-image: none;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.fc-state-disabled {
-    cursor: default;
-    background-image: none;
-    opacity: 0.65;
-    filter: alpha(opacity=65);
-    box-shadow: none;
-}
-
-
-/* Buttons Groups
---------------------------------------------------------------------------------------------------*/
-
-.fc-button-group {
-    display: inline-block;
-}
-
-
-/*
-every button that is not first in a button group should scootch over one pixel and cover the
-previous button's border...
-*/
-
-.fc .fc-button-group>* {
-    /* extra precedence b/c buttons have margin set to zero */
-    float: left;
-    margin: 0 0 0 -1px;
-}
-
-.fc .fc-button-group> :first-child {
-    /* same */
-    margin-left: 0;
-}
-
-
-/* Popover
---------------------------------------------------------------------------------------------------*/
-
-.fc-popover {
-    position: absolute;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, .15);
-}
-
-.fc-popover .fc-header {
-    /* TODO: be more consistent with fc-head/fc-body */
-    padding: 2px 4px;
-}
-
-.fc-popover .fc-header .fc-title {
-    margin: 0 2px;
-}
-
-.fc-popover .fc-header .fc-close {
-    cursor: pointer;
-}
-
-.fc-ltr .fc-popover .fc-header .fc-title,
-.fc-rtl .fc-popover .fc-header .fc-close {
-    float: left;
-}
-
-.fc-rtl .fc-popover .fc-header .fc-title,
-.fc-ltr .fc-popover .fc-header .fc-close {
-    float: right;
-}
-
-
-/* unthemed */
-
-.fc-unthemed .fc-popover {
-    border-width: 1px;
-    border-style: solid;
-}
-
-.fc-unthemed .fc-popover .fc-header .fc-close {
-    font-size: .9em;
-    margin-top: 2px;
-}
-
-
-/* jqui themed */
-
-.fc-popover>.ui-widget-header+.ui-widget-content {
-    border-top: 0;
-    /* where they meet, let the header have the border */
-}
-
-
-/* Misc Reusable Components
---------------------------------------------------------------------------------------------------*/
-
-.fc-divider {
-    border-style: solid;
-    border-width: 1px;
-}
-
-hr.fc-divider {
-    height: 0;
-    margin: 0;
-    padding: 0 0 2px;
-    /* height is unreliable across browsers, so use padding */
-    border-width: 1px 0;
-}
-
-.fc-clear {
-    clear: both;
-}
-
-.fc-bg,
-.fc-bgevent-skeleton,
-.fc-highlight-skeleton,
-.fc-helper-skeleton {
-    /* these element should always cling to top-left/right corners */
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-}
-
-.fc-bg {
-    bottom: 0;
-    /* strech bg to bottom edge */
-}
-
-.fc-bg table {
-    height: 100%;
-    /* strech bg to bottom edge */
-}
-
-
-/* Tables
---------------------------------------------------------------------------------------------------*/
-
-.fc table {
-    width: 100%;
-    table-layout: fixed;
-    border-collapse: collapse;
-    border-spacing: 0;
-    font-size: 1em;
-    /* normalize cross-browser */
-}
-
-.fc th {
-    text-align: center;
-}
-
-.fc th,
-.fc td {
-    border-style: solid;
-    border-width: 1px;
-    padding: 0;
-    vertical-align: top;
-}
-
-.fc td.fc-today {
-    border-style: double;
-    /* overcome neighboring borders */
-}
-
-
-/* Fake Table Rows
---------------------------------------------------------------------------------------------------*/
-
-.fc .fc-row {
-    /* extra precedence to overcome themes w/ .ui-widget-content forcing a 1px border */
-    /* no visible border by default. but make available if need be (scrollbar width compensation) */
-    border-style: solid;
-    border-width: 0;
-}
-
-.fc-row table {
-    /* don't put left/right border on anything within a fake row.
-	   the outer tbody will worry about this */
-    border-left: 0 hidden transparent;
-    border-right: 0 hidden transparent;
-    /* no bottom borders on rows */
-    border-bottom: 0 hidden transparent;
-}
-
-.fc-row:first-child table {
-    border-top: 0 hidden transparent;
-    /* no top border on first row */
-}
-
-
-/* Day Row (used within the header and the DayGrid)
---------------------------------------------------------------------------------------------------*/
-
-.fc-row {
-    position: relative;
-}
-
-.fc-row .fc-bg {
-    z-index: 1;
-}
-
-
-/* highlighting cells & background event skeleton */
-
-.fc-row .fc-bgevent-skeleton,
-.fc-row .fc-highlight-skeleton {
-    bottom: 0;
-    /* stretch skeleton to bottom of row */
-}
-
-.fc-row .fc-bgevent-skeleton table,
-.fc-row .fc-highlight-skeleton table {
-    height: 100%;
-    /* stretch skeleton to bottom of row */
-}
-
-.fc-row .fc-highlight-skeleton td,
-.fc-row .fc-bgevent-skeleton td {
-    border-color: transparent;
-}
-
-.fc-row .fc-bgevent-skeleton {
-    z-index: 2;
-}
-
-.fc-row .fc-highlight-skeleton {
-    z-index: 3;
-}
-
-
-/*
-row content (which contains day/week numbers and events) as well as "helper" (which contains
-temporary rendered events).
-*/
-
-.fc-row .fc-content-skeleton {
-    position: relative;
-    z-index: 4;
-    padding-bottom: 2px;
-    /* matches the space above the events */
-}
-
-.fc-row .fc-helper-skeleton {
-    z-index: 5;
-}
-
-.fc-row .fc-content-skeleton td,
-.fc-row .fc-helper-skeleton td {
-    /* see-through to the background below */
-    background: none;
-    /* in case <td>s are globally styled */
-    border-color: transparent;
-    /* don't put a border between events and/or the day number */
     border-bottom: 0;
 }
 
-.fc-row .fc-content-skeleton tbody td,
-
-/* cells with events inside (so NOT the day number cell) */
-
-.fc-row .fc-helper-skeleton tbody td {
-    /* don't put a border between event cells */
-    border-top: 0;
+.cal-month-view .cal-cell-top {
+    min-height: 78px;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
 }
 
-
-/* Scrolling Container
---------------------------------------------------------------------------------------------------*/
-
-.fc-scroller {
-    /* this class goes on elements for guaranteed vertical scrollbars */
-    overflow-y: scroll;
-    overflow-x: hidden;
+.cal-month-view .cal-cell-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    -js-display: flex;
+    display: flex;
 }
 
-.fc-scroller>* {
-    /* we expect an immediate inner element */
-    position: relative;
-    /* re-scope all positions */
-    width: 100%;
-    /* hack to force re-sizing this inner element when scrollbars appear/disappear */
-    overflow: hidden;
-    /* don't let negative margins or absolute positioning create further scroll */
+.cal-month-view .cal-cell {
+    float: left;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    -js-display: flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
 }
 
-
-/* Global Event Styles
---------------------------------------------------------------------------------------------------*/
-
-.fc-event {
-    position: relative;
-    /* for resize handle and other inner positioning */
-    display: block;
-    /* make the <a> tag block */
-    font-size: .85em;
-    line-height: 1.3;
-    border-radius: 3px;
-    border: 1px solid #3a87ad;
-    /* default BORDER color */
-    background-color: #3a87ad;
-    /* default BACKGROUND color */
-    font-weight: normal;
-    /* undo jqui's ui-widget-header bold */
+.cal-month-view .cal-day-cell {
+    min-height: 100px;
 }
 
-
-/* overpower some of bootstrap's and jqui's styles on <a> tags */
-
-.fc-event,
-.fc-event:hover,
-.ui-widget .fc-event {
-    color: #fff;
-    /* default TEXT color */
-    text-decoration: none;
-    /* if <a> has an href */
+@media all and (-ms-high-contrast: none) {
+    .cal-month-view .cal-day-cell {
+        display: block;
+    }
 }
 
-.fc-event[href],
-.fc-event.fc-draggable {
-    cursor: pointer;
-    /* give events with links and draggable events a hand mouse pointer */
+.cal-month-view .cal-day-cell:not(:last-child) {
+    border-right: 1px solid;
 }
 
-.fc-not-allowed,
-
-/* causes a "warning" cursor. applied on body */
-
-.fc-not-allowed .fc-event {
-    /* to override an event's custom cursor */
-    cursor: not-allowed;
+.cal-month-view .cal-days .cal-cell-row {
+    border-bottom: 1px solid;
 }
 
-.fc-event .fc-bg {
-    /* the generic .fc-bg already does position */
-    z-index: 1;
-    background: #fff;
-    opacity: .25;
-    filter: alpha(opacity=25);
-    /* for IE */
-}
-
-.fc-event .fc-content {
-    position: relative;
-    z-index: 2;
-}
-
-.fc-event .fc-resizer {
-    position: absolute;
-    z-index: 3;
-}
-
-
-/* Horizontal Events
---------------------------------------------------------------------------------------------------*/
-
-
-/* events that are continuing to/from another week. kill rounded corners and butt up against edge */
-
-.fc-ltr .fc-h-event.fc-not-start,
-.fc-rtl .fc-h-event.fc-not-end {
-    margin-left: 0;
-    border-left-width: 0;
-    padding-left: 1px;
-    /* replace the border with padding */
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.fc-ltr .fc-h-event.fc-not-end,
-.fc-rtl .fc-h-event.fc-not-start {
-    margin-right: 0;
-    border-right-width: 0;
-    padding-right: 1px;
-    /* replace the border with padding */
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-
-/* resizer */
-
-.fc-h-event .fc-resizer {
-    /* positioned it to overcome the event's borders */
-    top: -1px;
-    bottom: -1px;
-    left: -1px;
-    right: -1px;
-    width: 5px;
-}
-
-
-/* left resizer  */
-
-.fc-ltr .fc-h-event .fc-start-resizer,
-.fc-ltr .fc-h-event .fc-start-resizer:before,
-.fc-ltr .fc-h-event .fc-start-resizer:after,
-.fc-rtl .fc-h-event .fc-end-resizer,
-.fc-rtl .fc-h-event .fc-end-resizer:before,
-.fc-rtl .fc-h-event .fc-end-resizer:after {
-    right: auto;
-    /* ignore the right and only use the left */
-    cursor: w-resize;
-}
-
-
-/* right resizer */
-
-.fc-ltr .fc-h-event .fc-end-resizer,
-.fc-ltr .fc-h-event .fc-end-resizer:before,
-.fc-ltr .fc-h-event .fc-end-resizer:after,
-.fc-rtl .fc-h-event .fc-start-resizer,
-.fc-rtl .fc-h-event .fc-start-resizer:before,
-.fc-rtl .fc-h-event .fc-start-resizer:after {
-    left: auto;
-    /* ignore the left and only use the right */
-    cursor: e-resize;
-}
-
-
-/* DayGrid events
-----------------------------------------------------------------------------------------------------
-We use the full "fc-day-grid-event" class instead of using descendants because the event won't
-be a descendant of the grid when it is being dragged.
-*/
-
-.fc-day-grid-event {
-    margin: 1px 2px 0;
-    /* spacing between events and edges */
-    padding: 0 1px;
-}
-
-.fc-day-grid-event .fc-content {
-    /* force events to be one-line tall */
+.cal-month-view .cal-day-badge {
+    margin-top: 18px;
+    margin-left: 10px;
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
     white-space: nowrap;
-    overflow: hidden;
+    vertical-align: middle;
+    border-radius: 10px;
 }
 
-.fc-day-grid-event .fc-time {
-    font-weight: bold;
+.cal-month-view .cal-day-number {
+    font-size: 1.2em;
+    font-weight: 400;
+    opacity: 0.5;
+    margin-top: 15px;
+    margin-right: 15px;
+    float: right;
+    margin-bottom: 10px;
 }
 
-.fc-day-grid-event .fc-resizer {
-    /* enlarge the default hit area */
-    left: -3px;
-    right: -3px;
-    width: 7px;
+.cal-month-view .cal-events {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+    margin: 3px;
+    line-height: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    -js-display: flex;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 
+.cal-month-view .cal-event {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 2px;
+}
 
-/* Event Limiting
---------------------------------------------------------------------------------------------------*/
-
-
-/* "more" link that represents hidden events */
-
-a.fc-more {
-    margin: 1px 3px;
-    font-size: .85em;
+.cal-month-view .cal-day-cell.cal-in-month.cal-has-events {
     cursor: pointer;
-    text-decoration: none;
 }
 
-a.fc-more:hover {
+.cal-month-view .cal-day-cell.cal-out-month .cal-day-number {
+    opacity: 0.1;
+    cursor: default;
+}
+
+.cal-month-view .cal-day-cell.cal-today .cal-day-number {
+    font-size: 1.9em;
+}
+
+.cal-month-view .cal-open-day-events {
+    padding: 15px;
+}
+
+.cal-month-view .cal-open-day-events .cal-event {
+    position: relative;
+    top: 2px;
+}
+
+.cal-month-view .cal-out-month .cal-day-badge,
+.cal-month-view .cal-out-month .cal-event {
+    opacity: 0.3;
+}
+
+.cal-month-view .cal-draggable {
+    cursor: move;
+}
+
+.cal-month-view .cal-drag-active * {
+    pointer-events: none;
+}
+
+.cal-month-view .cal-event-title {
+    cursor: pointer;
+}
+
+.cal-month-view .cal-event-title:hover {
     text-decoration: underline;
 }
 
-.fc-limited {
-    /* rows and cells that are hidden because of a "more" link */
-    display: none;
+.cal-month-view {
+    background-color: #fff;
 }
 
-
-/* popover that appears when "more" link is clicked */
-
-.fc-day-grid .fc-row {
-    z-index: 1;
-    /* make the "more" popover one higher than this */
+.cal-month-view .cal-cell-row:hover {
+    background-color: #fafafa;
 }
 
-.fc-more-popover {
-    z-index: 2;
-    width: 220px;
+.cal-month-view .cal-cell-row .cal-cell:hover,
+.cal-month-view .cal-cell.cal-has-events.cal-open {
+    background-color: #ededed;
 }
 
-.fc-more-popover .fc-event-container {
-    padding: 10px;
+.cal-month-view .cal-days {
+    border-color: #e1e1e1;
 }
 
+.cal-month-view .cal-day-cell:not(:last-child) {
+    border-right-color: #e1e1e1;
+}
 
-/* Toolbar
---------------------------------------------------------------------------------------------------*/
+.cal-month-view .cal-days .cal-cell-row {
+    border-bottom-color: #e1e1e1;
+}
 
-.fc-toolbar {
+.cal-month-view .cal-day-badge {
+    background-color: #b94a48;
+    color: #fff;
+}
+
+.cal-month-view .cal-event {
+    background-color: #1e90ff;
+    border-color: #d1e8ff;
+    color: #fff;
+}
+
+.cal-month-view .cal-day-cell.cal-weekend .cal-day-number {
+    color: #8b0000;
+}
+
+.cal-month-view .cal-day-cell.cal-today {
+    background-color: #e8fde7;
+}
+
+.cal-month-view .cal-day-cell.cal-drag-over {
+    background-color: #e0e0e0 !important;
+}
+
+.cal-month-view .cal-open-day-events {
+    color: #fff;
+    background-color: #555;
+    -webkit-box-shadow: inset 0 0 15px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 0 15px 0 rgba(0, 0, 0, 0.5);
+}
+
+.cal-week-view {
+    /* stylelint-disable-next-line selector-type-no-unknown */
+}
+
+.cal-week-view * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.cal-week-view .cal-day-headers {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    -js-display: flex;
+    display: flex;
+    padding-left: 70px;
+    border: 1px solid;
+}
+
+.cal-week-view .cal-day-headers .cal-header {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
     text-align: center;
-    margin-bottom: 1em;
+    padding: 5px;
 }
 
-.fc-toolbar .fc-left {
-    float: left;
+.cal-week-view .cal-day-headers .cal-header:not(:last-child) {
+    border-right: 1px solid;
 }
 
-.fc-toolbar .fc-right {
-    float: right;
+.cal-week-view .cal-day-headers .cal-header:first-child {
+    border-left: 1px solid;
 }
 
-.fc-toolbar .fc-center {
-    display: inline-block;
+.cal-week-view .cal-day-headers span {
+    font-weight: 400;
+    opacity: 0.5;
 }
 
-
-/* the things within each left/right/center section */
-
-.fc .fc-toolbar>*>* {
-    /* extra precedence to override button border margins */
-    float: left;
-    margin-left: .75em;
+.cal-week-view .cal-day-column {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    border-left: solid 1px;
 }
 
-
-/* the first thing within each left/center/right section */
-
-.fc .fc-toolbar>*> :first-child {
-    /* extra precedence to override button border margins */
-    margin-left: 0;
+.cal-week-view .cal-event {
+    font-size: 12px;
+    border: 1px solid;
 }
 
-
-/* title text */
-
-.fc-toolbar h2 {
-    margin: 0;
+.cal-week-view .cal-time-label-column {
+    width: 70px;
+    height: 100%;
 }
 
-
-/* button layering (for border precedence) */
-
-.fc-toolbar button {
+.cal-week-view .cal-all-day-events {
+    border: solid 1px;
+    border-top: 0;
+    border-bottom-width: 3px;
+    padding-top: 3px;
     position: relative;
 }
 
-.fc-toolbar .fc-state-hover,
-.fc-toolbar .ui-state-hover {
-    z-index: 2;
-}
-
-.fc-toolbar .fc-state-down {
-    z-index: 3;
-}
-
-.fc-toolbar .fc-state-active,
-.fc-toolbar .ui-state-active {
-    z-index: 4;
-}
-
-.fc-toolbar button:focus {
-    z-index: 5;
-}
-
-
-/* View Structure
---------------------------------------------------------------------------------------------------*/
-
-
-/* undo twitter bootstrap's box-sizing rules. normalizes positioning techniques */
-
-
-/* don't do this for the toolbar because we'll want bootstrap to style those buttons as some pt */
-
-.fc-view-container *,
-.fc-view-container *:before,
-.fc-view-container *:after {
-    -webkit-box-sizing: content-box;
-    -moz-box-sizing: content-box;
-    box-sizing: content-box;
-}
-
-.fc-view,
-
-/* scope positioning and z-index's for everything within the view */
-
-.fc-view>table {
-    /* so dragged elements can be above the view's main element */
-    position: relative;
-    z-index: 1;
-}
-
-
-/* BasicView
---------------------------------------------------------------------------------------------------*/
-
-
-/* day row structure */
-
-.fc-basicWeek-view .fc-content-skeleton,
-.fc-basicDay-view .fc-content-skeleton {
-    /* we are sure there are no day numbers in these views, so... */
-    padding-top: 1px;
-    /* add a pixel to make sure there are 2px padding above events */
-    padding-bottom: 1em;
-    /* ensure a space at bottom of cell for user selecting/clicking */
-}
-
-.fc-basic-view .fc-body .fc-row {
-    min-height: 4em;
-    /* ensure that all rows are at least this tall */
-}
-
-
-/* a "rigid" row will take up a constant amount of height because content-skeleton is absolute */
-
-.fc-row.fc-rigid {
-    overflow: hidden;
-}
-
-.fc-row.fc-rigid .fc-content-skeleton {
+.cal-week-view .cal-all-day-events .cal-day-columns {
+    height: 100%;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    -js-display: flex;
+    display: flex;
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
+    z-index: 0;
 }
 
-
-/* week and day number styling */
-
-.fc-basic-view .fc-week-number,
-.fc-basic-view .fc-day-number {
-    padding: 0 2px;
+.cal-week-view .cal-all-day-events .cal-events-row {
+    position: relative;
+    height: 31px;
+    margin-left: 70px;
 }
 
-.fc-basic-view td.fc-week-number span,
-.fc-basic-view td.fc-day-number {
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-
-.fc-basic-view .fc-week-number {
-    text-align: center;
-}
-
-.fc-basic-view .fc-week-number span {
-    /* work around the way we do column resizing and ensure a minimum width */
+.cal-week-view .cal-all-day-events .cal-event-container {
     display: inline-block;
-    min-width: 1.25em;
+    position: absolute;
 }
 
-.fc-ltr .fc-basic-view .fc-day-number {
-    text-align: right;
-}
-
-.fc-rtl .fc-basic-view .fc-day-number {
-    text-align: left;
-}
-
-.fc-day-number.fc-other-month {
-    opacity: 0.3;
-    filter: alpha(opacity=30);
-    /* for IE */
-    /* opacity with small font can sometimes look too faded
-	   might want to set the 'color' property instead
-	   making day-numbers bold also fixes the problem */
-}
-
-
-/* AgendaView all-day area
---------------------------------------------------------------------------------------------------*/
-
-.fc-agenda-view .fc-day-grid {
-    position: relative;
-    z-index: 2;
-    /* so the "more.." popover will be over the time grid */
-}
-
-.fc-agenda-view .fc-day-grid .fc-row {
-    min-height: 3em;
-    /* all-day section will never get shorter than this */
-}
-
-.fc-agenda-view .fc-day-grid .fc-row .fc-content-skeleton {
-    padding-top: 1px;
-    /* add a pixel to make sure there are 2px padding above events */
-    padding-bottom: 1em;
-    /* give space underneath events for clicking/selecting days */
-}
-
-
-/* TimeGrid axis running down the side (for both the all-day area and the slot area)
---------------------------------------------------------------------------------------------------*/
-
-.fc .fc-axis {
-    /* .fc to overcome default cell styles */
-    vertical-align: middle;
-    padding: 0 4px;
-    white-space: nowrap;
-    width: 80px !important;
-}
-
-.fc-ltr .fc-axis {
-    text-align: right;
-}
-
-.fc-rtl .fc-axis {
-    text-align: left;
-}
-
-.ui-widget td.fc-axis {
-    font-weight: normal;
-    /* overcome jqui theme making it bold */
-}
-
-
-/* TimeGrid Structure
---------------------------------------------------------------------------------------------------*/
-
-.fc-time-grid-container,
-
-/* so scroll container's z-index is below all-day */
-
-.fc-time-grid {
-    /* so slats/bg/content/etc positions get scoped within here */
-    position: relative;
+.cal-week-view .cal-all-day-events .cal-event-container.resize-active {
     z-index: 1;
+    pointer-events: none;
 }
 
-.fc-time-grid {
-    min-height: 100%;
-    /* so if height setting is 'auto', .fc-bg stretches to fill height */
+.cal-week-view .cal-all-day-events .cal-event {
+    padding: 0 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+    height: 28px;
+    line-height: 28px;
 }
 
-.fc-time-grid table {
-    /* don't put outer borders on slats/bg/content/etc */
-    border: 0 hidden transparent;
+.cal-week-view .cal-all-day-events .cal-starts-within-week .cal-event {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
-.fc-time-grid>.fc-bg {
-    z-index: 1;
+.cal-week-view .cal-all-day-events .cal-ends-within-week .cal-event {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
-.fc-time-grid .fc-slats,
-.fc-time-grid>hr {
-    /* the <hr> AgendaView injects when grid is shorter than scroller */
-    position: relative;
-    z-index: 2;
+.cal-week-view .cal-all-day-events .cal-time-label-column {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    -js-display: flex;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-size: 14px;
 }
 
-.fc-time-grid .fc-bgevent-skeleton,
-.fc-time-grid .fc-content-skeleton {
+.cal-week-view .cal-all-day-events .cal-resize-handle {
+    width: 6px;
+    height: 100%;
+    cursor: col-resize;
     position: absolute;
     top: 0;
-    left: 0;
+}
+
+.cal-week-view .cal-all-day-events .cal-resize-handle.cal-resize-handle-after-end {
     right: 0;
 }
 
-.fc-time-grid .fc-bgevent-skeleton {
-    z-index: 3;
+.cal-week-view .cal-event,
+.cal-week-view .cal-header {
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.fc-time-grid .fc-highlight-skeleton {
-    z-index: 4;
+.cal-week-view .cal-drag-active {
+    pointer-events: none;
+    z-index: 1;
 }
 
-.fc-time-grid .fc-content-skeleton {
-    z-index: 5;
+.cal-week-view .cal-drag-active * {
+    pointer-events: none;
 }
 
-.fc-time-grid .fc-helper-skeleton {
-    z-index: 6;
-}
-
-
-/* TimeGrid Slats (lines that run horizontally)
---------------------------------------------------------------------------------------------------*/
-
-.fc-time-grid .fc-slats td {
-    height: 1.5em;
-    border-bottom: 0;
-    /* each cell is responsible for its top border */
-}
-
-.fc-time-grid .fc-slats .fc-minor td {
-    border-top-style: dotted;
-}
-
-.fc-time-grid .fc-slats .ui-widget-content {
-    /* for jqui theme */
-    background: none;
-    /* see through to fc-bg */
-}
-
-
-/* TimeGrid Highlighting Slots
---------------------------------------------------------------------------------------------------*/
-
-.fc-time-grid .fc-highlight-container {
-    /* a div within a cell within the fc-highlight-skeleton */
+.cal-week-view .cal-time-events {
     position: relative;
-    /* scopes the left/right of the fc-highlight to be in the column */
+    border: solid 1px;
+    border-top: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    -js-display: flex;
+    display: flex;
 }
 
-.fc-time-grid .fc-highlight {
-    position: absolute;
-    left: 0;
-    right: 0;
-    /* top and bottom will be in by JS */
+.cal-week-view .cal-time-events .cal-day-columns {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    -js-display: flex;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
 }
 
-
-/* TimeGrid Event Containment
---------------------------------------------------------------------------------------------------*/
-
-.fc-time-grid .fc-event-container,
-
-/* a div within a cell within the fc-content-skeleton */
-
-.fc-time-grid .fc-bgevent-container {
-    /* a div within a cell within the fc-bgevent-skeleton */
+.cal-week-view .cal-time-events .cal-day-column {
     position: relative;
 }
 
-.fc-ltr .fc-time-grid .fc-event-container {
-    /* space on the sides of events for LTR (default) */
-    margin: 0 2.5% 0 2px;
-}
-
-.fc-rtl .fc-time-grid .fc-event-container {
-    /* space on the sides of events for RTL */
-    margin: 0 2px 0 2.5%;
-}
-
-.fc-time-grid .fc-event,
-.fc-time-grid .fc-bgevent {
+.cal-week-view .cal-time-events .cal-event-container {
     position: absolute;
     z-index: 1;
-    /* scope inner z-index's */
 }
 
-.fc-time-grid .fc-bgevent {
-    /* background events always span full width */
-    left: 0;
-    right: 0;
+.cal-week-view .cal-time-events .cal-event {
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    margin: 1px;
+    padding: 0 5px;
+    line-height: 25px;
 }
 
-
-/* Generic Vertical Event
---------------------------------------------------------------------------------------------------*/
-
-.fc-v-event.fc-not-start {
-    /* events that are continuing from another day */
-    /* replace space made by the top border with padding */
-    border-top-width: 0;
-    padding-top: 1px;
-    /* remove top rounded corners */
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+.cal-week-view .cal-time-events .cal-resize-handle {
+    width: 100%;
+    height: 4px;
+    cursor: row-resize;
+    position: absolute;
 }
 
-.fc-v-event.fc-not-end {
-    /* replace space made by the top border with padding */
-    border-bottom-width: 0;
-    padding-bottom: 1px;
-    /* remove bottom rounded corners */
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-
-/* TimeGrid Event Styling
-----------------------------------------------------------------------------------------------------
-We use the full "fc-time-grid-event" class instead of using descendants because the event won't
-be a descendant of the grid when it is being dragged.
-*/
-
-.fc-time-grid-event {
-    overflow: hidden;
-    /* don't let the bg flow over rounded corners */
-}
-
-.fc-time-grid-event .fc-time,
-.fc-time-grid-event .fc-title {
-    padding: 0 1px;
-}
-
-.fc-time-grid-event .fc-time {
-    font-size: .85em;
-    white-space: nowrap;
-}
-
-
-/* short mode, where time and title are on the same line */
-
-.fc-time-grid-event.fc-short .fc-content {
-    /* don't wrap to second line (now that contents will be inline) */
-    white-space: nowrap;
-}
-
-.fc-time-grid-event.fc-short .fc-time,
-.fc-time-grid-event.fc-short .fc-title {
-    /* put the time and title on the same line */
-    display: inline-block;
-    vertical-align: top;
-}
-
-.fc-time-grid-event.fc-short .fc-time span {
-    display: none;
-    /* don't display the full time text... */
-}
-
-.fc-time-grid-event.fc-short .fc-time:before {
-    content: attr(data-start);
-    /* ...instead, display only the start time */
-}
-
-.fc-time-grid-event.fc-short .fc-time:after {
-    content: "\000A0-\000A0";
-    /* seperate with a dash, wrapped in nbsp's */
-}
-
-.fc-time-grid-event.fc-short .fc-title {
-    font-size: .85em;
-    /* make the title text the same size as the time */
-    padding: 0;
-    /* undo padding from above */
-}
-
-
-/* resizer */
-
-.fc-time-grid-event .fc-resizer {
-    left: 0;
-    right: 0;
+.cal-week-view .cal-time-events .cal-resize-handle.cal-resize-handle-after-end {
     bottom: 0;
-    height: 8px;
-    overflow: hidden;
-    line-height: 8px;
-    font-size: 11px;
-    font-family: monospace;
-    text-align: center;
-    cursor: s-resize;
 }
 
-.fc-time-grid-event .fc-resizer:after {
-    content: "=";
+.cal-week-view .cal-hour-segment {
+    position: relative;
+}
+
+.cal-week-view .cal-hour-segment::after {
+    content: '\00a0';
+}
+
+.cal-week-view .cal-event-container:not(.cal-draggable) {
+    cursor: pointer;
+}
+
+.cal-week-view .cal-draggable {
+    cursor: move;
+}
+
+.cal-week-view mwl-calendar-week-view-hour-segment,
+.cal-week-view .cal-hour-segment {
+    display: block;
+}
+
+.cal-week-view .cal-hour:not(:last-child) .cal-hour-segment,
+.cal-week-view .cal-hour:last-child :not(:last-child) .cal-hour-segment {
+    border-bottom: thin dashed;
+}
+
+.cal-week-view .cal-time {
+    font-weight: bold;
+    padding-top: 5px;
+    width: 70px;
+    text-align: center;
+}
+
+.cal-week-view .cal-hour-segment.cal-after-hour-start .cal-time {
+    display: none;
+}
+
+.cal-week-view .cal-starts-within-day .cal-event {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.cal-week-view .cal-ends-within-day .cal-event {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.cal-week-view {
+    background-color: #fff;
+}
+
+.cal-week-view .cal-day-headers {
+    border-color: #e1e1e1;
+}
+
+.cal-week-view .cal-day-headers .cal-header:not(:last-child) {
+    border-right-color: #e1e1e1;
+}
+
+.cal-week-view .cal-day-headers .cal-header:first-child {
+    border-left-color: #e1e1e1;
+}
+
+.cal-week-view .cal-day-headers .cal-header:hover,
+.cal-week-view .cal-day-headers .cal-drag-over {
+    background-color: #ededed;
+}
+
+.cal-week-view .cal-day-column {
+    border-left-color: #e1e1e1;
+}
+
+.cal-week-view .cal-event {
+    background-color: #d1e8ff;
+    border-color: #1e90ff;
+    color: #1e90ff;
+}
+
+.cal-week-view .cal-all-day-events {
+    border-color: #e1e1e1;
+}
+
+.cal-week-view .cal-header.cal-today {
+    background-color: #e8fde7;
+}
+
+.cal-week-view .cal-header.cal-weekend span {
+    color: #8b0000;
+}
+
+.cal-week-view .cal-time-events {
+    border-color: #e1e1e1;
+}
+
+.cal-week-view .cal-time-events .cal-day-columns:not(.cal-resize-active) .cal-hour-segment:hover {
+    background-color: #ededed;
+}
+
+.cal-week-view .cal-hour-odd {
+    background-color: #fafafa;
+}
+
+.cal-week-view .cal-drag-over .cal-hour-segment {
+    background-color: #ededed;
+}
+
+.cal-week-view .cal-hour:not(:last-child) .cal-hour-segment,
+.cal-week-view .cal-hour:last-child :not(:last-child) .cal-hour-segment {
+    border-bottom-color: #e1e1e1;
+}
+
+.cal-day-view {
+    /* stylelint-disable-next-line selector-type-no-unknown */
+}
+
+.cal-day-view * {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.cal-day-view .cal-hour-rows {
+    width: 100%;
+    border: solid 1px;
+    overflow-x: auto;
+    position: relative;
+}
+
+.cal-day-view mwl-calendar-day-view-hour-segment,
+.cal-day-view .cal-hour-segment {
+    display: block;
+}
+
+.cal-day-view .cal-hour-segment::after {
+    content: '\00a0';
+}
+
+.cal-day-view .cal-hour:not(:last-child) .cal-hour-segment,
+.cal-day-view .cal-hour:last-child :not(:last-child) .cal-hour-segment {
+    border-bottom: thin dashed;
+}
+
+.cal-day-view .cal-time {
+    font-weight: bold;
+    width: 70px;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    -js-display: flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.cal-day-view .cal-hour-segment.cal-after-hour-start .cal-time {
+    display: none;
+}
+
+.cal-day-view .cal-drag-active .cal-hour-segment {
+    pointer-events: none;
+}
+
+.cal-day-view .cal-event-container {
+    position: absolute;
+    cursor: pointer;
+}
+
+.cal-day-view .cal-event-container.resize-active {
+    z-index: 1;
+    pointer-events: none;
+}
+
+.cal-day-view .cal-event {
+    padding: 5px;
+    font-size: 12px;
+    border: 1px solid;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 100%;
+}
+
+.cal-day-view .cal-all-day-events>* {
+    cursor: pointer;
+}
+
+.cal-day-view .cal-draggable {
+    cursor: move;
+}
+
+.cal-day-view .cal-starts-within-day .cal-event {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.cal-day-view .cal-ends-within-day .cal-event {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.cal-day-view .cal-drag-active {
+    z-index: 1;
+}
+
+.cal-day-view .cal-drag-active * {
+    pointer-events: none;
+}
+
+.cal-day-view .cal-resize-handle {
+    width: 100%;
+    height: 4px;
+    cursor: row-resize;
+    position: absolute;
+}
+
+.cal-day-view .cal-resize-handle.cal-resize-handle-after-end {
+    bottom: 0;
+}
+
+.cal-day-view {
+    background-color: #fff;
+}
+
+.cal-day-view .cal-hour-rows {
+    border-color: #e1e1e1;
+}
+
+.cal-day-view .cal-hour:nth-child(odd) {
+    background-color: #fafafa;
+}
+
+.cal-day-view .cal-hour:not(:last-child) .cal-hour-segment,
+.cal-day-view .cal-hour:last-child :not(:last-child) .cal-hour-segment {
+    border-bottom-color: #e1e1e1;
+}
+
+.cal-day-view .cal-hour-segment:hover,
+.cal-day-view .cal-drag-over .cal-hour-segment {
+    background-color: #ededed;
+}
+
+.cal-day-view .cal-event {
+    background-color: #d1e8ff;
+    border-color: #1e90ff;
+    color: #1e90ff;
+}
+
+.cal-tooltip {
+    position: absolute;
+    z-index: 1070;
+    display: block;
+    font-style: normal;
+    font-weight: normal;
+    letter-spacing: normal;
+    line-break: auto;
+    line-height: 1.5;
+    text-align: start;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    white-space: normal;
+    word-break: normal;
+    word-spacing: normal;
+    font-size: 11px;
+    word-wrap: break-word;
+    opacity: 0.9;
+}
+
+.cal-tooltip.cal-tooltip-top {
+    padding: 5px 0;
+    margin-top: -3px;
+}
+
+.cal-tooltip.cal-tooltip-top .cal-tooltip-arrow {
+    bottom: 0;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px 5px 0;
+}
+
+.cal-tooltip.cal-tooltip-right {
+    padding: 0 5px;
+    margin-left: 3px;
+}
+
+.cal-tooltip.cal-tooltip-right .cal-tooltip-arrow {
+    top: 50%;
+    left: 0;
+    margin-top: -5px;
+    border-width: 5px 5px 5px 0;
+}
+
+.cal-tooltip.cal-tooltip-bottom {
+    padding: 5px 0;
+    margin-top: 3px;
+}
+
+.cal-tooltip.cal-tooltip-bottom .cal-tooltip-arrow {
+    top: 0;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 0 5px 5px;
+}
+
+.cal-tooltip.cal-tooltip-left {
+    padding: 0 5px;
+    margin-left: -3px;
+}
+
+.cal-tooltip.cal-tooltip-left .cal-tooltip-arrow {
+    top: 50%;
+    right: 0;
+    margin-top: -5px;
+    border-width: 5px 0 5px 5px;
+}
+
+.cal-tooltip-inner {
+    max-width: 200px;
+    padding: 3px 8px;
+    text-align: center;
+    border-radius: 0.25rem;
+}
+
+.cal-tooltip-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.cal-tooltip.cal-tooltip-top .cal-tooltip-arrow {
+    border-top-color: #000;
+}
+
+.cal-tooltip.cal-tooltip-right .cal-tooltip-arrow {
+    border-right-color: #000;
+}
+
+.cal-tooltip.cal-tooltip-bottom .cal-tooltip-arrow {
+    border-bottom-color: #000;
+}
+
+.cal-tooltip.cal-tooltip-left .cal-tooltip-arrow {
+    border-left-color: #000;
+}
+
+.cal-tooltip-inner {
+    color: #fff;
+    background-color: #000;
 }
