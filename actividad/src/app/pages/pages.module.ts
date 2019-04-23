@@ -9,7 +9,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PAGES_ROUTES } from './pages.routes';
 
 // Pipes
- import { PipesModule } from '../pipes/pipes.module';
+import { PipesModule } from '../pipes/pipes.module';
+
+// Calendario
+import { FullCalendarModule } from 'ng-fullcalendar';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 // import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
@@ -48,7 +51,8 @@ import { ActualizarContraseniaComponent } from './usuarios/actualizar-contraseni
     PAGES_ROUTES,
     FormsModule,
     ReactiveFormsModule,
-    PipesModule
+    PipesModule,
+    FullCalendarModule
     // ChartsModule,
   ]
 
