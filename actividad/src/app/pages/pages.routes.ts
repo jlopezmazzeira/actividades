@@ -8,12 +8,11 @@ import { AdminGuard } from '../services/services.index';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { UsuarioComponent } from './usuarios/usuario.component';
-import { BuscadorComponent } from './buscador/buscador.component';
 import { ProyectosComponent } from './proyectos/proyectos.component';
 import { ProyectoComponent } from './proyectos/proyecto.component';
 import { ActividadesComponent } from './actividades/actividades.component';
 import { ActualizarContraseniaComponent } from './usuarios/actualizar-contrasenia.component';
-import { CalendarComponent } from '../components/calendar/calendar.component';
+import { CalendarioComponent } from './calendario/calendario.component';
 
 export const pagesRoutes: Routes = [
   {
@@ -22,15 +21,9 @@ export const pagesRoutes: Routes = [
     data: {titulo: 'Dashboard'},
     canActivate: [VerificaTokenGuard]
   },
-  {
-    path: 'calendario',
-    component: CalendarComponent,
-    data: {titulo: 'Calendario'}
-  },
-  // { path: 'account-settings', component: AccoutSettingsComponent, data: {titulo: 'Ajustes del Tema'} },
+  { path: 'calendario', component: CalendarioComponent, data: { titulo: 'Calendario' } },
   { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de usuario'} },
   { path: 'actualizar-contrasenia', component: ActualizarContraseniaComponent, data: { titulo: 'Actualizar contraseña'} },
-  { path: 'busqueda/:termino', component: BuscadorComponent, data: { titulo: 'Buscador'} },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   // Mantenimientos
   {

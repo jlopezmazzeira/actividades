@@ -15,15 +15,14 @@ import { PipesModule } from '../pipes/pipes.module';
 import { FullCalendarModule } from 'ng-fullcalendar';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-// import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
-import { BuscadorComponent } from './buscador/buscador.component';
 import { ProyectosComponent } from './proyectos/proyectos.component';
 import { ProyectoComponent } from './proyectos/proyecto.component';
 import { UsuarioComponent } from './usuarios/usuario.component';
 import { ActividadesComponent } from './actividades/actividades.component';
 import { ActualizarContraseniaComponent } from './usuarios/actualizar-contrasenia.component';
+import { CalendarioComponent } from './calendario/calendario.component';
 
 @NgModule({
   declarations: [
@@ -36,8 +35,8 @@ import { ActualizarContraseniaComponent } from './usuarios/actualizar-contraseni
     UsuariosComponent,
     UsuarioComponent,
     ActividadesComponent,
-    BuscadorComponent,
-    ActualizarContraseniaComponent
+    ActualizarContraseniaComponent,
+    CalendarioComponent
   ],
   exports: [
     // PagesComponent,
