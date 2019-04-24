@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
-import { UsuarioService } from 'src/app/services/services.index';
+import { UsuarioService } from '../../services/services.index';
 declare var swal: any;
 
 @Component({

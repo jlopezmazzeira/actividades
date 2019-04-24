@@ -1,3 +1,48 @@
-<p>
-  modal-actividad works!
-</p>
+<div class="fondo-negro animated fadeIn" [ngClass]="_serviceModalActividad.oculto">
+    <div class="modal" style="display: block;" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ _serviceModalActividad.title }}</h5>
+                    <button (click)="cerrarModal()" type="button" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="proyecto">Proyecto</label>
+                                <select id="proyecto" class="form-control">
+                                <option selected>Choose...</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="actividad">Actividades</label>
+                                <select id="actividad" class="form-control">
+                                <option selected>Choose...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="desde">Desde:</label>
+                                <input type="time" min="9:00" max="18:00" class="form-control" id="desde">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="hasta">Hasta:</label>
+                                <input type="time" min="9:00" max="18:00" class="form-control" id="hasta">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button (click)="crearHoraTrabajo()" [disabled]="!imagenTemp" type="button" class="btn btn-primary">Crear</button> -->
+                    <button *ngIf="_serviceModalActividad.tipo === 'update'" (click)="actualizarHoraTrabajo()" type="button" class="btn btn-primary">Actualizar</button>
+                    <button *ngIf="_serviceModalActividad.tipo === 'update'" (click)="eliminarHoraTrabajo()" type="button" class="btn btn-danger">Eliminar</button>
+                    <button (click)="cerrarModal()" type="button" class="btn btn-secondary">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

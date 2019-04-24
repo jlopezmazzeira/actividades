@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProyectoService, ActividadService } from '../../services/services.index';
 import { Proyecto } from '../../models/proyecto.model';
-import { Actividad } from 'src/app/models/actividad.model';
+import { Actividad } from '../../models/actividad.model';
 declare var swal: any;
 
 @Component({

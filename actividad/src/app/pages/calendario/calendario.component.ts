@@ -4,6 +4,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import esLocale from '@fullcalendar/core/locales/es';
 import { CalendarComponent } from 'ng-fullcalendar';
+import { ModalActividadService } from '../../components/modal-actividad/modal-actividad.service';
+import { HorasTrabajoService } from '../../services/services.index';
 
 @Component({
   selector: 'app-calendario',
@@ -15,13 +17,18 @@ export class CalendarioComponent implements OnInit {
   options: OptionsInput;
   events: any = [];
   @ViewChild('fullcalendar') fullcalendar: CalendarComponent;
+  cargando = true;
 
-  constructor() { }
+  constructor(public _serviceModalActividad: ModalActividadService,
+              public _serviceHorasTrabajo: HorasTrabajoService) { }
 
   ngOnInit() {
+    this._serviceModalActividad.notificacion
+    .subscribe( resp => console.log('hola'));
+
     this.options = {
-      editable: true,
-      eventLimit: false,
+      editable: false,
+      eventLimit: true,
       header: {
         left: 'prev,next today',
         center: 'title',
@@ -30,17 +37,18 @@ export class CalendarioComponent implements OnInit {
       selectable: true,
       locale: esLocale,
       validRange: {
-        end: '2019-04-24'
+        end: new Date()
       },
       events: [],
       plugins: [ dayGridPlugin, interactionPlugin ]
     };
+
     this.loadEvents();
   }
 
   loadEvents() {
     // this.eventService.getEvents().subscribe(data => {
-      this.events = [{
+    this.events = [{
         title: 'Updaten Event',
         start: this.yearMonth + '-07',
         end: this.yearMonth + '-08',
@@ -53,28 +61,28 @@ export class CalendarioComponent implements OnInit {
         id: '9'
       }
     ];
+    this.cargando = false;
     // });
   }
 
-  eventClick(model) {
-    const event = this.fullcalendar.calendar.getEventById('9');
+  eventClick(info) {
+    this._serviceModalActividad.mostrarModal('Editar actividad', 'update');
+    const event = this.fullcalendar.calendar.getEventById(info.event._def.publicId);
     event._def.title = 'hola';
     this.fullcalendar.calendar.rerenderEvents();
     // event.remove();
   }
 
-  dateClick(model) {
-    const date = new Date(model.dateStr + 'T15:30:00');
+  dateClick(info) {
+    const date = new Date(info.dateStr + 'T15:30:00');
+    this._serviceModalActividad.mostrarModal('Agregar actividad', 'ad');
+
     this.fullcalendar.calendar.addEvent({
       title: 'Hola Event',
       start: date,
       end: date,
       id: '10'
     });
-  }
-
-  updateEvents() {
-    this.fullcalendar.calendar.getEventById('9');
   }
 
   get yearMonth(): string {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
-import { UsuarioService } from 'src/app/services/services.index';
+import { UsuarioService } from '../../services/services.index';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 declare var swal: any;

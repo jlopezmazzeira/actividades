@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UsuarioService, ProyectoService } from '../../services/services.index';
 import { Usuario } from '../../models/usuario.model';
 import { NgForm } from '@angular/forms';
-import { Proyecto } from 'src/app/models/proyecto.model';
+import { Proyecto } from '../../models/proyecto.model';
 
 @Component({
   selector: 'app-usuario',
