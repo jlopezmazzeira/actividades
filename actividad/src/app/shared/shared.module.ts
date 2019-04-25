@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { HeaderComponent } from './header/header.component';
 import { BreadcrumsComponent } from './breadcrums/breadcrums.component';
@@ -32,7 +33,8 @@ import { PipesModule } from '../pipes/pipes.module';
   imports: [
     CommonModule,
     RouterModule,
-    PipesModule
+    PipesModule,
+    FormsModule
   ]
 })
 export class SharedModule { }

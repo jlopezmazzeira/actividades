@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { UsuarioService } from '../../services/services.index';
+import { Component, OnInit, } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { UsuarioService, ProyectoService } from '../../services/services.index';
 import { ModalActividadService } from './modal-actividad.service';
 import { Proyecto } from '../../models/proyecto.model';
 import { Actividad } from '../../models/actividad.model';
@@ -11,11 +12,14 @@ import { Actividad } from '../../models/actividad.model';
 })
 export class ModalActividadComponent implements OnInit {
 
-  public proyectos: Proyecto[] = [];
-  public actividades: Actividad[] = [];
+  proyectos: Proyecto[] = [];
+  actividades: Actividad[] = [];
+  proyectoSeleccionado = '';
+  actividadSeleccionada = '';
 
   constructor(public _serviceUsuario: UsuarioService,
-              public _serviceModalActividad: ModalActividadService) { }
+              public _serviceModalActividad: ModalActividadService,
+              public _serviceProyecto: ProyectoService) { }
 
   ngOnInit() {
     this.proyectos = this._serviceUsuario.usuario.proyectos;
@@ -23,9 +27,16 @@ export class ModalActividadComponent implements OnInit {
 
   cerrarModal() {
     this._serviceModalActividad.ocultarModal();
+    this.proyectoSeleccionado = '';
+    this.actividadSeleccionada = '';
   }
 
-  mostrarActividadesProyecto() { }
+  mostrarActividadesProyecto() {
+    this._serviceProyecto.cargarProyecto(this.proyectoSeleccionado)
+    .subscribe( proyecto => {
+      this.actividades = proyecto.actividades;
+    });
+  }
 
   crearHoraTrabajo() {
     this._serviceModalActividad.notificacion.emit('resp');

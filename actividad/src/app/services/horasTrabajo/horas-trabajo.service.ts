@@ -6,4 +6,16 @@ import { Injectable } from '@angular/core';
 export class HorasTrabajoService {
 
   constructor() { }
+
+  crearHoraTrabajo() { }
+
+  cargarHorasTrabajo() { }
+
+  actualizarHoraTrabajo() { }
+
+  eliminarHoraTrabajo() { }
+
+  obtenerHorasTrabajoProyecto() { }
+
+  obtenerHoraTrabajo() { }
 }

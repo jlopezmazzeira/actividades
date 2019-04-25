@@ -13,14 +13,16 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="proyecto">Proyecto</label>
-                                <select id="proyecto" class="form-control">
-                                <option selected>Choose...</option>
+                                <select [(ngModel)]="proyectoSeleccionado" id="proyecto" name="proyectoSeleccionado" class="form-control" (change)="mostrarActividadesProyecto()">
+                                    <option value="" selected>Seleccione proyecto</option>
+                                    <option *ngFor="let proyecto of proyectos" value="{{proyecto._id}}">{{proyecto.nombre}}</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="actividad">Actividades</label>
-                                <select id="actividad" class="form-control">
-                                <option selected>Choose...</option>
+                                <select [(ngModel)]="actividadSeleccionada" id="actividad" name="actividadSeleccionada" class="form-control">
+                                    <option value="" selected>Seleccione actividad</option>
+                                    <option *ngFor="let actividad of actividades" value="{{actividad._id}}">{{actividad.nombre}}</option>
                                 </select>
                             </div>
                         </div>
