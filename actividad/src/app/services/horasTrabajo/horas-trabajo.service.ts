@@ -14,7 +14,16 @@ export class HorasTrabajoService {
   constructor(public http: HttpClient,
               public _serviceUsuario: UsuarioService) { }
 
-  crearHoraTrabajo() { }
+  crearHoraTrabajo(diaTrabajo: any) {
+    let url = URL_SERVICIOS + '/horasTrabajadas/' + this._serviceUsuario.usuario._id;
+    url += '?token=' + this._serviceUsuario.token;
+
+    return this.http.post(url, diaTrabajo)
+               .pipe(map((resp: any) => {
+                swal('Actividad creada', '', 'success');
+                return resp.diaTrabajadoGuardado;
+            }));
+  }
 
   cargarHorasTrabajo(desde: number = 0) {
     let url = URL_SERVICIOS + '/horasTrabajadas/' + this._serviceUsuario.usuario._id + '/?desde=' + desde;
@@ -29,5 +38,10 @@ export class HorasTrabajoService {
 
   obtenerHorasTrabajoProyecto() { }
 
-  obtenerHoraTrabajo() { }
+  obtenerHoraTrabajo(id: string) {
+    let url = URL_SERVICIOS + '/horasActividades/' + id;
+    url += '?token=' + this._serviceUsuario.token;
+
+    return this.http.get(url);
+  }
 }

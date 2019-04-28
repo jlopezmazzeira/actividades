@@ -36,10 +36,36 @@ app.get('/:id', mdAutenticacion.verificaToken, (req, resp) => {
 // =====================================
 // OBTENER HORAS PROYECTOS
 // =====================================
-app.get('/', mdAutenticacion.verificaToken, (req, resp) => {
+app.get('/horas-proyecto/:id', mdAutenticacion.verificaToken, (req, resp) => {
     var id = req.params.id;
 
     HorasActvidades.find()
+        .populate('actividad', 'nombre _id')
+        .populate('proyecto', 'nombre _id codigo')
+        .exec((err, horasActividades) => {
+            if (err) {
+                return resp.status(500).json({
+                    ok: false,
+                    mensaje: 'Error al buscar días de trabajo',
+                    errors: err
+                });
+            }
+
+            resp.status(201).json({
+                ok: true,
+                horasActividades: horasActividades,
+                usuarioToken: req.usuario
+            });
+        });
+});
+
+// =====================================
+// OBTENER HORA TRABAJO
+// =====================================
+app.get('/:id', mdAutenticacion.verificaToken, (req, resp) => {
+    var id = req.params.id;
+
+    HorasActvidades.findById(id)
         .populate('actividad', 'nombre _id')
         .populate('proyecto', 'nombre _id codigo')
         .exec((err, horasActividades) => {

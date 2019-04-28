@@ -29,17 +29,17 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="desde">Desde:</label>
-                                <input type="time" min="9:00" max="18:00" class="form-control" id="desde">
+                                <input type="time" min="9:00" max="18:00" class="form-control" [(ngModel)]="desde" id="desde" name="desde">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="hasta">Hasta:</label>
-                                <input type="time" min="9:00" max="18:00" class="form-control" id="hasta">
+                                <input type="time" min="9:00" max="18:00" class="form-control" [(ngModel)]="hasta" id="hasta" name="hasta">
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <!-- <button (click)="crearHoraTrabajo()" [disabled]="!imagenTemp" type="button" class="btn btn-primary">Crear</button> -->
+                    <button *ngIf="_serviceModalActividad.tipo === 'add'" (click)="crearHoraTrabajo()" type="button" class="btn btn-primary">Crear</button>
                     <button *ngIf="_serviceModalActividad.tipo === 'update'" (click)="actualizarHoraTrabajo()" type="button" class="btn btn-primary">Actualizar</button>
                     <button *ngIf="_serviceModalActividad.tipo === 'update'" (click)="eliminarHoraTrabajo()" type="button" class="btn btn-danger">Eliminar</button>
                     <button (click)="cerrarModal()" type="button" class="btn btn-secondary">Cerrar</button>

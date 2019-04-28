@@ -26,7 +26,7 @@ export class CalendarioComponent implements OnInit {
 
   ngOnInit() {
     this._serviceModalActividad.notificacion
-    .subscribe( resp => console.log('hola'));
+    .subscribe( resp => this.loadEvents());
 
     this.options = {
       editable: false,
@@ -59,7 +59,6 @@ export class CalendarioComponent implements OnInit {
             events.push({
               title: elemento.actividad.nombre,
               start: this.fechaTrabajo(dia.dia),
-              end: this.fechaTrabajo(dia.dia),
               id: elemento._id
             });
           }
@@ -70,28 +69,22 @@ export class CalendarioComponent implements OnInit {
   }
 
   eventClick(info) {
-    this._serviceModalActividad.mostrarModal('Editar actividad', 'update');
-    const event = this.fullcalendar.calendar.getEventById(info.event._def.publicId);
-    event._def.title = 'hola';
-    this.fullcalendar.calendar.rerenderEvents();
+    const id = info.event._def.publicId;
+    this._serviceModalActividad.mostrarModal('Editar actividad', 'update', null, id);
+    // const event = this.fullcalendar.calendar.getEventById(info.event._def.publicId);
+    // event._def.title = 'hola';
+    // this.fullcalendar.calendar.rerenderEvents();
     // event.remove();
   }
 
   dateClick(info) {
-    const date = new Date(info.dateStr + 'T15:30:00');
-    this._serviceModalActividad.mostrarModal('Agregar actividad', 'ad');
-
-    this.fullcalendar.calendar.addEvent({
-      title: 'Hola Event',
-      start: date,
-      end: date,
-      id: '10'
-    });
+    const date = new Date(info.dateStr);
+    this._serviceModalActividad.mostrarModal('Agregar actividad', 'add', date);
   }
 
   fechaTrabajo(dia) {
     const dateObj = new Date(dia);
-    return dateObj.getUTCFullYear() + '-' + (dateObj.getUTCMonth() + 1) + '-' + dateObj.getUTCDay();
+    return dateObj.getUTCFullYear() + '-' + (dateObj.getUTCMonth() + 1) + '-' + dateObj.getUTCDate();
   }
 
 }

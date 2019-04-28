@@ -1,6 +1,6 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UsuarioService, ProyectoService } from '../../services/services.index';
+import { UsuarioService, ProyectoService, HorasTrabajoService } from '../../services/services.index';
 import { ModalActividadService } from './modal-actividad.service';
 import { Proyecto } from '../../models/proyecto.model';
 import { Actividad } from '../../models/actividad.model';
@@ -12,14 +12,18 @@ import { Actividad } from '../../models/actividad.model';
 })
 export class ModalActividadComponent implements OnInit {
 
+  // @Input('test') nombre: string = 'hola';
   proyectos: Proyecto[] = [];
   actividades: Actividad[] = [];
   proyectoSeleccionado = '';
   actividadSeleccionada = '';
+  desde: any;
+  hasta: any;
 
   constructor(public _serviceUsuario: UsuarioService,
               public _serviceModalActividad: ModalActividadService,
-              public _serviceProyecto: ProyectoService) { }
+              public _serviceProyecto: ProyectoService,
+              public _serviceHorasTrabajadas: HorasTrabajoService) { }
 
   ngOnInit() {
     this.proyectos = this._serviceUsuario.usuario.proyectos;
@@ -29,6 +33,8 @@ export class ModalActividadComponent implements OnInit {
     this._serviceModalActividad.ocultarModal();
     this.proyectoSeleccionado = '';
     this.actividadSeleccionada = '';
+    this.desde = null;
+    this.hasta = null;
   }
 
   mostrarActividadesProyecto() {
@@ -39,11 +45,36 @@ export class ModalActividadComponent implements OnInit {
   }
 
   crearHoraTrabajo() {
-    this._serviceModalActividad.notificacion.emit('resp');
-    this.cerrarModal();
+    const dia = {
+      dia: this._serviceModalActividad.date,
+      horaTrabajada: {
+        cantidad: 2,
+        desde: this.desde,
+        hasta: this.hasta,
+        proyecto: this.proyectoSeleccionado,
+        actividad: this.actividadSeleccionada
+      }
+    };
+
+    this._serviceHorasTrabajadas.crearHoraTrabajo(dia).subscribe(resp => {
+      this._serviceModalActividad.notificacion.emit(resp);
+      this.cerrarModal();
+    });
+
+  }
+
+  cargarHora(id) {
+    console.log(id);
+    this._serviceHorasTrabajadas.obtenerHoraTrabajo(id).subscribe(resp => {
+      console.log(resp);
+      // this._serviceModalActividad.notificacion.emit(resp);
+      // this.cerrarModal();
+    });
   }
 
   actualizarHoraTrabajo() {
+    const id = this._serviceModalActividad.id;
+    console.log(id);
     this._serviceModalActividad.notificacion.emit('resp');
     this.cerrarModal();
   }

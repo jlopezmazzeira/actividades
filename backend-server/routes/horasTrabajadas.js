@@ -72,7 +72,7 @@ app.get('/:id', mdAutenticacion.verificaToken, (req, resp) => {
 
             DiasTrabajados.find({ usuario: id })
                 .skip(desde)
-                .limit(5)
+                .limit(30)
                 .populate({ path: 'horasTrabajadas', populate: [{ path: 'proyecto', select: 'codigo nombre _id' }, { path: 'actividad' }] })
                 .populate('usuario', 'nombre login _id')
                 .exec((err, diasTrabajados) => {
@@ -102,17 +102,6 @@ app.post('/:id', mdAutenticacion.verificaToken, (req, resp) => {
     var id = req.params.id;
     var body = req.body;
 
-    var horasTrabajadas = body.horasTrabajadas;
-    horasTrabajadas = JSON.parse(horasTrabajadas);
-
-    if (horasTrabajadas.length == 0) {
-        return resp.status(400).json({
-            ok: false,
-            mensaje: 'Debes agregas una activdad',
-            errors: { message: 'No hay actividades' }
-        });
-    }
-
     Usuario.findById(id)
         .exec((err, usuario) => {
             if (err) {
@@ -138,12 +127,8 @@ app.post('/:id', mdAutenticacion.verificaToken, (req, resp) => {
 
             diaTrabajado.horasTrabajadas = [];
 
-            for (var indice in horasTrabajadas) {
-                var horaTrabajada = horasTrabajadas[indice];
-
-                var id = guardarHoraTrabajo(horaTrabajada);
-                diaTrabajado.horasTrabajadas.push(id);
-            }
+            var id = guardarHoraTrabajo(body.horaTrabajada);
+            diaTrabajado.horasTrabajadas.push(id);
 
             diaTrabajado.save((err, diaTrabajadoGuardado) => {
                 if (err) {
