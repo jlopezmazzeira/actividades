@@ -147,7 +147,6 @@ app.delete('/:id', mdAutenticacion.verificaToken, (req, resp) => {
 // =====================================
 // ELIMINAR DÍA TRABAJO (Si no hay actividades en el día, se elimina el día de trabajo)
 // =====================================
-
 function eliminarDiaTrabajo(id) {
 
     DiasTrabajados.find({ horasTrabajadas: id })

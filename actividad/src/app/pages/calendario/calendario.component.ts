@@ -18,6 +18,8 @@ export class CalendarioComponent implements OnInit {
   events: any = [];
   @ViewChild('fullcalendar') fullcalendar: CalendarComponent;
   cargando = true;
+  desde = 0;
+  totalRegistros = 0;
 
   constructor(public _serviceModalActividad: ModalActividadService,
               public _serviceHorasTrabajo: HorasTrabajoService) { }
@@ -47,22 +49,24 @@ export class CalendarioComponent implements OnInit {
   }
 
   loadEvents() {
-    // this.eventService.getEvents().subscribe(data => {
-    this.events = [{
-        title: 'Updaten Event',
-        start: this.yearMonth + '-07',
-        end: this.yearMonth + '-08',
-        id: '8'
-      },
-      {
-        title: 'Event',
-        start: this.yearMonth + '-08',
-        end: this.yearMonth + '-09',
-        id: '9'
-      }
-    ];
-    this.cargando = false;
-    // });
+    this._serviceHorasTrabajo.cargarHorasTrabajo(this.desde).subscribe(
+      (resp: any) => {
+        const dias = resp.diasTrabajados;
+        const events = [];
+
+        for (const dia of dias) {
+          for (const elemento of dia.horasTrabajadas) {
+            events.push({
+              title: elemento.actividad.nombre,
+              start: this.fechaTrabajo(dia.dia),
+              end: this.fechaTrabajo(dia.dia),
+              id: elemento._id
+            });
+          }
+        }
+        this.events = events;
+        this.cargando = false;
+    });
   }
 
   eventClick(info) {
@@ -85,9 +89,9 @@ export class CalendarioComponent implements OnInit {
     });
   }
 
-  get yearMonth(): string {
-    const dateObj = new Date();
-    return dateObj.getUTCFullYear() + '-' + (dateObj.getUTCMonth() + 1);
+  fechaTrabajo(dia) {
+    const dateObj = new Date(dia);
+    return dateObj.getUTCFullYear() + '-' + (dateObj.getUTCMonth() + 1) + '-' + dateObj.getUTCDay();
   }
 
 }
