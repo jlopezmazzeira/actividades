@@ -6,6 +6,7 @@ import esLocale from '@fullcalendar/core/locales/es';
 import { CalendarComponent } from 'ng-fullcalendar';
 import { ModalActividadService } from '../../components/modal-actividad/modal-actividad.service';
 import { HorasTrabajoService } from '../../services/services.index';
+import { ModalActividadComponent } from '../../components/modal-actividad/modal-actividad.component';
 
 @Component({
   selector: 'app-calendario',
@@ -17,6 +18,7 @@ export class CalendarioComponent implements OnInit {
   options: OptionsInput;
   events: any = [];
   @ViewChild('fullcalendar') fullcalendar: CalendarComponent;
+  @ViewChild(ModalActividadComponent) modalActividad: ModalActividadComponent;
   cargando = true;
   desde = 0;
   totalRegistros = 0;
@@ -70,7 +72,9 @@ export class CalendarioComponent implements OnInit {
 
   eventClick(info) {
     const id = info.event._def.publicId;
-    this._serviceModalActividad.mostrarModal('Editar actividad', 'update', null, id);
+    this.modalActividad.titulo = 'Editar actividad';
+    this._serviceModalActividad.mostrarModal('update', null);
+    this.modalActividad.cargarHora(id);
     // const event = this.fullcalendar.calendar.getEventById(info.event._def.publicId);
     // event._def.title = 'hola';
     // this.fullcalendar.calendar.rerenderEvents();
@@ -79,7 +83,8 @@ export class CalendarioComponent implements OnInit {
 
   dateClick(info) {
     const date = new Date(info.dateStr);
-    this._serviceModalActividad.mostrarModal('Agregar actividad', 'add', date);
+    this.modalActividad.titulo = 'Agregar actividad';
+    this._serviceModalActividad.mostrarModal('add', date);
   }
 
   fechaTrabajo(dia) {

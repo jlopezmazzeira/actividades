@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UsuarioService, ProyectoService, HorasTrabajoService } from '../../services/services.index';
 import { ModalActividadService } from './modal-actividad.service';
 import { Proyecto } from '../../models/proyecto.model';
 import { Actividad } from '../../models/actividad.model';
+declare var swal: any;
 
 @Component({
   selector: 'app-modal-actividad',
@@ -12,7 +13,8 @@ import { Actividad } from '../../models/actividad.model';
 })
 export class ModalActividadComponent implements OnInit {
 
-  // @Input('test') nombre: string = 'hola';
+  titulo: string;
+  id: string;
   proyectos: Proyecto[] = [];
   actividades: Actividad[] = [];
   proyectoSeleccionado = '';
@@ -67,21 +69,45 @@ export class ModalActividadComponent implements OnInit {
     console.log(id);
     this._serviceHorasTrabajadas.obtenerHoraTrabajo(id).subscribe(resp => {
       console.log(resp);
-      // this._serviceModalActividad.notificacion.emit(resp);
-      // this.cerrarModal();
+      /*
+        proyectoSeleccionado = '';
+        actividadSeleccionada = '';
+        desde: any;
+        hasta: any; */
     });
   }
 
   actualizarHoraTrabajo() {
-    const id = this._serviceModalActividad.id;
-    console.log(id);
-    this._serviceModalActividad.notificacion.emit('resp');
-    this.cerrarModal();
+    const horaTrabajada = {
+      cantidad: 2,
+      desde: this.desde,
+      hasta: this.hasta,
+      proyecto: this.proyectoSeleccionado,
+      actividad: this.actividadSeleccionada
+    };
+
+    this._serviceHorasTrabajadas.actualizarHoraTrabajo(this.id, horaTrabajada).subscribe(resp => {
+      this._serviceModalActividad.notificacion.emit(resp);
+      this.cerrarModal();
+    });
   }
 
   eliminarHoraTrabajo() {
-    this._serviceModalActividad.notificacion.emit('resp');
-    this.cerrarModal();
+    swal({
+      title: '¿Esta seguro?',
+      text: 'Esta a punto de borrar la actividad',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((borrar) => {
+      if (borrar) {
+        this._serviceHorasTrabajadas.eliminarHoraTrabajo(this.id).subscribe(resp => {
+          this._serviceModalActividad.notificacion.emit(resp);
+          this.cerrarModal();
+        });
+      }
+    });
   }
 
 

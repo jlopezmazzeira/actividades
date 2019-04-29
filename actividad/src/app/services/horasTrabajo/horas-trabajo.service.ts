@@ -32,9 +32,23 @@ export class HorasTrabajoService {
     return this.http.get(url);
   }
 
-  actualizarHoraTrabajo() { }
+  actualizarHoraTrabajo(id: string, horaTrabajada: any) {
+    let url = URL_SERVICIOS + '/horasTrabajadas/' + id;
+    url += '?token=' + this._serviceUsuario.token;
 
-  eliminarHoraTrabajo() { }
+    return this.http.put(url, horaTrabajada)
+               .pipe(map((resp: any) => {
+                swal('Actividad actualizada', '', 'success');
+                return resp.diaTrabajadoGuardado;
+            }));
+  }
+
+  eliminarHoraTrabajo(id: string) {
+    let url = URL_SERVICIOS + '/horasTrabajadas/' + id;
+    url += '&token=' + this._serviceUsuario.token;
+
+    return this.http.delete(url);
+  }
 
   obtenerHorasTrabajoProyecto() { }
 
