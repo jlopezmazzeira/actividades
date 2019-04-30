@@ -40,3 +40,21 @@
     margin: 0 auto;
     max-width: 900px;
 }
+
+.fc-widget-content {
+    border-color: #2C3E50 !important;
+}
+
+.fc th.fc-widget-header {
+    color: white !important;
+}
+
+.fc th.fc-mon,
+.fc th.fc-tue,
+.fc th.fc-wed,
+.fc th.fc-thu,
+.fc th.fc-fri,
+.fc th.fc-sat,
+.fc th.fc-sun {
+    background: #2C3E50 !important;
+}

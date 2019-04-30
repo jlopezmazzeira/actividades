@@ -50,7 +50,7 @@ export class ModalActividadComponent implements OnInit {
     const dia = {
       dia: this._serviceModalActividad.date,
       horaTrabajada: {
-        cantidad: 2,
+        cantidad: this.calcularCantidadHoras(),
         desde: this.desde,
         hasta: this.hasta,
         proyecto: this.proyectoSeleccionado,
@@ -78,7 +78,7 @@ export class ModalActividadComponent implements OnInit {
 
   actualizarHoraTrabajo() {
     const horaTrabajada = {
-      cantidad: 4,
+      cantidad: this.calcularCantidadHoras(),
       desde: this.desde,
       hasta: this.hasta,
       proyecto: this.proyectoSeleccionado,
@@ -107,6 +107,17 @@ export class ModalActividadComponent implements OnInit {
         });
       }
     });
+  }
+
+  calcularCantidadHoras() {
+    let hasta = this.hasta;
+    hasta = hasta.split(':');
+    let desde = this.desde;
+    desde = desde.split(':');
+    const minHasta = (hasta[0] * 60) + Number(hasta[1]);
+    const minDesde = (desde[0] * 60) + Number(desde[1]);
+    const total = (minHasta - minDesde) / 60;
+    return total;
   }
 
 

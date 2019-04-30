@@ -75,14 +75,13 @@ export class CalendarioComponent implements OnInit {
     this.modalActividad.titulo = 'Editar actividad';
     this._serviceModalActividad.mostrarModal('update', null);
     this.modalActividad.cargarHora(id);
-    // const event = this.fullcalendar.calendar.getEventById(info.event._def.publicId);
-    // event._def.title = 'hola';
-    // this.fullcalendar.calendar.rerenderEvents();
-    // event.remove();
   }
 
   dateClick(info) {
-    const date = new Date(info.dateStr);
+    let date: any = new Date(info.dateStr);
+    console.log(date);
+    date = this.fechaTrabajo(date);
+    console.log(date);
     this.modalActividad.titulo = 'Agregar actividad';
     this._serviceModalActividad.mostrarModal('add', date);
   }
