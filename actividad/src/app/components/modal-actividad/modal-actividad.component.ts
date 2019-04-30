@@ -66,20 +66,19 @@ export class ModalActividadComponent implements OnInit {
   }
 
   cargarHora(id) {
-    console.log(id);
-    this._serviceHorasTrabajadas.obtenerHoraTrabajo(id).subscribe(resp => {
-      console.log(resp);
-      /*
-        proyectoSeleccionado = '';
-        actividadSeleccionada = '';
-        desde: any;
-        hasta: any; */
+    this.id = id;
+    this._serviceHorasTrabajadas.obtenerHoraTrabajo(this.id).subscribe((resp: any) => {
+        this.proyectoSeleccionado = resp.horasActividades.proyecto._id;
+        this.actividadSeleccionada = resp.horasActividades.actividad._id;
+        this.desde = resp.horasActividades.desde;
+        this.hasta = resp.horasActividades.hasta;
+        this.mostrarActividadesProyecto();
     });
   }
 
   actualizarHoraTrabajo() {
     const horaTrabajada = {
-      cantidad: 2,
+      cantidad: 4,
       desde: this.desde,
       hasta: this.hasta,
       proyecto: this.proyectoSeleccionado,

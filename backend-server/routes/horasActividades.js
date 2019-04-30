@@ -11,7 +11,7 @@ var DiasTrabajados = require('../models/diasTrabajados');
 // =====================================
 // OBTENER HORAS PROYECTO
 // =====================================
-app.get('/:id', mdAutenticacion.verificaToken, (req, resp) => {
+app.get('/horas-proyecto/:id', mdAutenticacion.verificaToken, (req, resp) => {
     var id = req.params.id;
 
     HorasActvidades.find({ proyecto: id })
@@ -36,7 +36,7 @@ app.get('/:id', mdAutenticacion.verificaToken, (req, resp) => {
 // =====================================
 // OBTENER HORAS PROYECTOS
 // =====================================
-app.get('/horas-proyecto/:id', mdAutenticacion.verificaToken, (req, resp) => {
+app.get('/horas-proyectos/:id', mdAutenticacion.verificaToken, (req, resp) => {
     var id = req.params.id;
 
     HorasActvidades.find()
@@ -185,8 +185,8 @@ function eliminarDiaTrabajo(id) {
                 });
             }
 
-            if (diasTrabajadas.length == 0) {
-                DiasTrabajados.findByIdAndRemove(diasTrabajadas._id, (err, diaTrabajadoBorrado) => {
+            if (diasTrabajados.length == 0) {
+                DiasTrabajados.findByIdAndRemove(diasTrabajados._id, (err, diaTrabajadoBorrado) => {
                     if (err) {
                         return resp.status(500).json({
                             ok: false,

@@ -33,7 +33,7 @@ export class HorasTrabajoService {
   }
 
   actualizarHoraTrabajo(id: string, horaTrabajada: any) {
-    let url = URL_SERVICIOS + '/horasTrabajadas/' + id;
+    let url = URL_SERVICIOS + '/horasActividades/' + id;
     url += '?token=' + this._serviceUsuario.token;
 
     return this.http.put(url, horaTrabajada)
@@ -44,8 +44,8 @@ export class HorasTrabajoService {
   }
 
   eliminarHoraTrabajo(id: string) {
-    let url = URL_SERVICIOS + '/horasTrabajadas/' + id;
-    url += '&token=' + this._serviceUsuario.token;
+    let url = URL_SERVICIOS + '/horasActividades/' + id;
+    url += '?token=' + this._serviceUsuario.token;
 
     return this.http.delete(url);
   }
