@@ -79,9 +79,7 @@ export class CalendarioComponent implements OnInit {
 
   dateClick(info) {
     let date: any = new Date(info.dateStr);
-    console.log(date);
     date = this.fechaTrabajo(date);
-    console.log(date);
     this.modalActividad.titulo = 'Agregar actividad';
     this._serviceModalActividad.mostrarModal('add', date);
   }

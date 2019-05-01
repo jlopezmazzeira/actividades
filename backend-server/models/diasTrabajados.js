@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var diasTrabajadasSchema = new Schema({
-    dia: { type: Date, required: [true, 'La fecha es necesaria'] },
+    dia: { type: String, required: [true, 'La fecha es necesaria'] },
     horasTrabajadas: [{
         type: Schema.Types.ObjectId,
         ref: 'HorasTrabajadas'
