@@ -138,76 +138,104 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, resp) => {
 // =====================================
 // ELIMINAR HORA ACTIVIDAD
 // =====================================
-app.delete('/:id', mdAutenticacion.verificaToken, (req, resp) => {
+app.delete('/:id', (req, resp) => {
 
     var id = req.params.id;
 
-    HorasActvidades.findByIdAndRemove(id, (err, horaActividadBorrada) => {
+    DiasTrabajados.findOne({ horasTrabajadas: id }).exec((err, diasTrabajados) => {
         if (err) {
             return resp.status(500).json({
                 ok: false,
-                mensaje: 'Error al borrar hora de trabajo',
+                mensaje: 'Error al buscar día de trabajo',
                 errors: err
             });
         }
 
-        if (!horaActividadBorrada) {
-            return resp.status(400).json({
-                ok: false,
-                mensaje: 'La hora de trabajo con el id ' + id + ' no existe',
-                errors: { message: 'No existe la hora de trabajo con ese ID' }
-            });
-        }
+        var actividades = diasTrabajados.horasTrabajadas;
+        if (actividades.length > 1) {
+            var actividad = actividades.indexOf(id);
+            actividades.splice(actividad, 1);
 
-        eliminarDiaTrabajo(horaActividadBorrada._id);
+            diasTrabajados.save((err, diaTrabajadoGuardado) => {
+                if (err) {
+                    return resp.status(400).json({
+                        ok: false,
+                        mensaje: 'Error al actualizar día de trabajo',
+                        errors: err
+                    });
+                }
 
-        resp.status(200).json({
-            ok: true,
-            horaActvidad: horaActividadBorrada
-        });
-
-    });
-
-});
-
-// =====================================
-// ELIMINAR DÍA TRABAJO (Si no hay actividades en el día, se elimina el día de trabajo)
-// =====================================
-function eliminarDiaTrabajo(id) {
-
-    DiasTrabajados.find({ horasTrabajadas: id })
-        .exec((err, diasTrabajados) => {
-            if (err) {
-                return resp.status(500).json({
-                    ok: false,
-                    mensaje: 'Error al buscar día de trabajo',
-                    errors: err
-                });
-            }
-
-            if (diasTrabajados.length == 0) {
-                DiasTrabajados.findByIdAndRemove(diasTrabajados._id, (err, diaTrabajadoBorrado) => {
+                HorasActvidades.findByIdAndRemove(id, (err, horaActividadBorrada) => {
                     if (err) {
                         return resp.status(500).json({
                             ok: false,
-                            mensaje: 'Error al borrar dia de trabajo',
+                            mensaje: 'Error al borrar hora de trabajo',
                             errors: err
                         });
                     }
 
-                    if (!diaTrabajadoBorrado) {
+                    if (!horaActividadBorrada) {
                         return resp.status(400).json({
                             ok: false,
-                            mensaje: 'El dia de trabajo con el id ' + id + ' no existe',
-                            errors: { message: 'No existe el dia de trabajo con ese ID' }
+                            mensaje: 'La hora de trabajo con el id ' + id + ' no existe',
+                            errors: { message: 'No existe la hora de trabajo con ese ID' }
                         });
                     }
 
+                    return resp.status(200).json({
+                        ok: true,
+                        horaActvidad: horaActividadBorrada
+                    });
+
                 });
-            }
 
-        });
+            });
+        } else {
+            DiasTrabajados.findByIdAndRemove(diasTrabajados._id, (err, diaTrabajadoBorrado) => {
+                if (err) {
+                    return resp.status(500).json({
+                        ok: false,
+                        mensaje: 'Error al borrar dia de trabajo',
+                        errors: err
+                    });
+                }
 
-}
+                if (!diaTrabajadoBorrado) {
+                    return resp.status(400).json({
+                        ok: false,
+                        mensaje: 'El dia de trabajo con el id ' + id + ' no existe',
+                        errors: { message: 'No existe el dia de trabajo con ese ID' }
+                    });
+                }
+
+                HorasActvidades.findByIdAndRemove(id, (err, horaActividadBorrada) => {
+                    if (err) {
+                        return resp.status(500).json({
+                            ok: false,
+                            mensaje: 'Error al borrar hora de trabajo',
+                            errors: err
+                        });
+                    }
+
+                    if (!horaActividadBorrada) {
+                        return resp.status(400).json({
+                            ok: false,
+                            mensaje: 'La hora de trabajo con el id ' + id + ' no existe',
+                            errors: { message: 'No existe la hora de trabajo con ese ID' }
+                        });
+                    }
+
+                    return resp.status(200).json({
+                        ok: true,
+                        horaActvidad: horaActividadBorrada
+                    });
+
+                });
+
+            });
+        }
+    });
+
+});
 
 module.exports = app;

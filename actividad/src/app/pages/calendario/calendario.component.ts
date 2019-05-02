@@ -16,7 +16,7 @@ import { ModalActividadComponent } from '../../components/modal-actividad/modal-
 export class CalendarioComponent implements OnInit {
 
   options: OptionsInput;
-  events: any = [];
+  events: any[] = [];
   @ViewChild('fullcalendar') fullcalendar: CalendarComponent;
   @ViewChild(ModalActividadComponent) modalActividad: ModalActividadComponent;
   cargando = true;
@@ -28,7 +28,10 @@ export class CalendarioComponent implements OnInit {
 
   ngOnInit() {
     this._serviceModalActividad.notificacion
-    .subscribe( resp => this.loadEvents());
+    .subscribe( resp => {
+      this.clearEvents();
+      this.loadEvents();
+    });
 
     this.options = {
       editable: false,
@@ -55,7 +58,6 @@ export class CalendarioComponent implements OnInit {
       (resp: any) => {
         const dias = resp.diasTrabajados;
         const events = [];
-
         for (const dia of dias) {
           for (const elemento of dia.horasTrabajadas) {
             events.push({
@@ -68,6 +70,10 @@ export class CalendarioComponent implements OnInit {
         this.events = events;
         this.cargando = false;
     });
+  }
+
+  clearEvents() {
+    this.fullcalendar.eventsModel = [];
   }
 
   eventClick(info) {

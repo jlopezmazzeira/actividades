@@ -120,67 +120,66 @@ app.post('/:id', mdAutenticacion.verificaToken, (req, resp) => {
                 });
             }
 
-            var diaTrabajado = new DiasTrabajados({
-                dia: body.dia,
-                usuario: usuario._id
-            });
+            DiasTrabajados.findOne({ usuario: usuario._id, dia: body.dia })
+                .exec((err, diaTrabajado) => {
+                    if (err) {
+                        return resp.status(500).json({
+                            ok: false,
+                            mensaje: 'Ha ocurrido un error, intente de nuevo',
+                            errors: err
+                        });
+                    }
 
-            diaTrabajado.horasTrabajadas = [];
+                    if (!diaTrabajado) {
+                        var nuevoDiaTrabajado = new DiasTrabajados({
+                            dia: body.dia,
+                            usuario: usuario._id
+                        });
 
-            var id = guardarHoraTrabajo(body.horaTrabajada);
-            diaTrabajado.horasTrabajadas.push(id);
+                        nuevoDiaTrabajado.horasTrabajadas = [];
 
-            diaTrabajado.save((err, diaTrabajadoGuardado) => {
-                if (err) {
-                    return resp.status(400).json({
-                        ok: false,
-                        mensaje: 'Error al crear día de trabajo',
-                        errors: err
-                    });
-                }
+                        var id = guardarHoraTrabajo(body.horaTrabajada);
+                        nuevoDiaTrabajado.horasTrabajadas.push(id);
 
-                resp.status(201).json({
-                    ok: true,
-                    diaTrabajadoGuardado: diaTrabajadoGuardado,
-                    usuarioToken: req.usuario
+                        nuevoDiaTrabajado.save((err, diaTrabajadoGuardado) => {
+                            if (err) {
+                                return resp.status(400).json({
+                                    ok: false,
+                                    mensaje: 'Error al crear día de trabajo',
+                                    errors: err
+                                });
+                            }
+
+                            resp.status(201).json({
+                                ok: true,
+                                diaTrabajadoGuardado: diaTrabajadoGuardado,
+                                usuarioToken: req.usuario
+                            });
+
+                        });
+                    } else {
+                        var id = guardarHoraTrabajo(body.horaTrabajada);
+                        diaTrabajado.horasTrabajadas.push(id);
+
+                        diaTrabajado.save((err, diaTrabajadoGuardado) => {
+                            if (err) {
+                                return resp.status(400).json({
+                                    ok: false,
+                                    mensaje: 'Error al crear día de trabajo',
+                                    errors: err
+                                });
+                            }
+
+                            resp.status(201).json({
+                                ok: true,
+                                diaTrabajadoGuardado: diaTrabajadoGuardado,
+                                usuarioToken: req.usuario
+                            });
+
+                        });
+                    }
                 });
-
-            });
-
         });
-});
-
-// =====================================
-// ELIMINAR DIA TRABAJO  
-// =====================================
-app.delete('/:id', mdAutenticacion.verificaToken, (req, resp) => {
-
-    var id = req.params.id;
-
-    DiasTrabajados.findByIdAndRemove(id, (err, diaTrabajadoBorrado) => {
-        if (err) {
-            return resp.status(500).json({
-                ok: false,
-                mensaje: 'Error al borrar dia de trabajo',
-                errors: err
-            });
-        }
-
-        if (!diaTrabajadoBorrado) {
-            return resp.status(400).json({
-                ok: false,
-                mensaje: 'El dia de trabajo con el id ' + id + ' no existe',
-                errors: { message: 'No existe el dia de trabajo con ese ID' }
-            });
-        }
-
-        resp.status(200).json({
-            ok: true,
-            diaTrabajado: diaTrabajadoBorrado
-        });
-
-    });
-
 });
 
 // =====================================

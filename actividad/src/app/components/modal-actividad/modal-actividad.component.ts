@@ -120,6 +120,4 @@ export class ModalActividadComponent implements OnInit {
     return total;
   }
 
-
-
 }
