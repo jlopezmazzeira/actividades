@@ -48,7 +48,10 @@ app.post('/', mdAutenticacion.verificaToken, (req, resp) => {
 
     var proyecto = new Proyecto({
         codigo: body.codigo,
-        nombre: body.nombre
+        nombre: body.nombre,
+        fechaInicio: body.fechaInicio,
+        fechaTermino: body.fechaTermino,
+        cantidadHoras: body.cantidadHoras
     });
 
     proyecto.save((err, proyectoGuardado) => {
@@ -131,6 +134,9 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, resp) => {
 
         proyecto.codigo = body.codigo;
         proyecto.nombre = body.nombre;
+        proyecto.fechaInicio = body.fechaInicio,
+            proyecto.fechaTermino = body.fechaTermino,
+            proyecto.cantidadHoras = body.cantidadHoras
 
         proyecto.save((err, proyectoGuardado) => {
             if (err) {

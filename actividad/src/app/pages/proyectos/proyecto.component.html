@@ -13,6 +13,14 @@
                             <label>Nombre del proyecto</label>
                             <input [(ngModel)]="proyecto.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del proyecto" required>
                         </div>
+                        <div class="form-group">
+                            <label>Fecha de inicio</label>
+                            <input [(ngModel)]="proyecto.fechaInicio" name="fechaInicio" type="date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Fecha de termino</label>
+                            <input [(ngModel)]="proyecto.fechaTermino" name="fechaTermino" type="date" class="form-control">
+                        </div>
                         <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
                       <i class="fa fa-save"></i>
                       Guardar
