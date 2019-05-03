@@ -45,8 +45,8 @@
                         <tr *ngFor="let proyecto of proyectos">
                             <td>{{ proyecto.codigo }}</td>
                             <td>{{ proyecto.nombre }}</td>
-                            <td>{{ proyecto.fechaInicio }}</td>
-                            <td>{{ proyecto.fechaTermino }}</td>
+                            <td>{{ proyecto.fechaInicio | fecha }}</td>
+                            <td>{{ proyecto.fechaTermino | fecha }}</td>
                             <td>
                                 <button [routerLink]="['/proyecto', proyecto._id]" class="btn btn-primary">
                                     <i class="fa fa-edit"></i>

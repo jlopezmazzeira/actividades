@@ -53,6 +53,12 @@ export class ProyectoComponent implements OnInit {
       return;
     }
 
+    const desde = new Date(this.proyecto.fechaInicio);
+    const hasta = new Date(this.proyecto.fechaTermino);
+    const resta = desde.getTime() - hasta.getTime();
+    const dias = Math.round(resta / (1000 * 60 * 60 * 24));
+    this.proyecto.cantidadHoras = dias * 8;
+
     this._serviceProyecto.guardarProyecto(this.proyecto)
     .subscribe(proyecto => {
       this.proyecto._id = proyecto._id;
