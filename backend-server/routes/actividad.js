@@ -9,7 +9,7 @@ var Actividad = require('../models/actividad');
 // =====================================
 // OBTENER TODOS LOS ACTIVIDADES
 // =====================================
-app.get('/', (req, resp, next) => {
+app.get('/', mdAutenticacion.verificaToken, (req, resp, next) => {
 
     var desde = req.query.desde || 0;
     desde = Number(desde);

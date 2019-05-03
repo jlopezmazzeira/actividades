@@ -138,7 +138,7 @@ app.put('/:id', mdAutenticacion.verificaToken, (req, resp) => {
 // =====================================
 // ELIMINAR HORA ACTIVIDAD
 // =====================================
-app.delete('/:id', (req, resp) => {
+app.delete('/:id', mdAutenticacion.verificaToken, (req, resp) => {
 
     var id = req.params.id;
 

@@ -10,7 +10,7 @@ var Usuario = require('../models/usuario');
 // =====================================
 // OBTENER TODOS LOS USUARIOS  
 // =====================================
-app.get('/', (req, resp, next) => {
+app.get('/', mdAutenticacion.verificaToken, (req, resp, next) => {
 
     var desde = req.query.desde || 0;
     desde = Number(desde);
