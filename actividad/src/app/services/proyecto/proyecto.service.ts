@@ -50,8 +50,15 @@ export class ProyectoService {
   }
 
   cargarProyectos(desde: number = 0) {
-    const url = URL_SERVICIOS + '/proyecto?desde=' + desde;
+    let url = URL_SERVICIOS + '/proyecto?desde=' + desde;
+    url += '&token=' + this._serviceUsuario.token;
 
+    return this.http.get(url);
+  }
+
+  proyectos() {
+    let url = URL_SERVICIOS + '/proyecto/todos-proyectos';
+    url += '?token=' + this._serviceUsuario.token;
     return this.http.get(url);
   }
 

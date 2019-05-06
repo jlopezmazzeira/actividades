@@ -13,8 +13,9 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <div *ngIf="options">
-                    <ng-fullcalendar #fullcalendar [options]="options" [(eventsModel)]="events" (eventClick)="eventClick($event)" (dateClick)="dateClick($event)"></ng-fullcalendar>
+                <div *ngIf="calendarVisible">
+                    <full-calendar #fullcalendar defaultView="dayGridMonth" [validRange]="validRange" [editable]="false" [header]="header" [locale]="calendarLocale" [eventLimit]="eventLimit" [selectable]="true" [plugins]="calendarPlugins" [weekends]="true" [(events)]="events"
+                        (eventClick)="eventClick($event)" (dateClick)="dateClick($event)"></full-calendar>
                 </div>
             </div>
         </div>

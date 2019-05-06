@@ -1,9 +1,7 @@
-import { ModuleWithProviders, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-// import { AccoutSettingsComponent } from './accout-settings/accout-settings.component';
-import { LoginGuard, VerificaTokenGuard } from '../services/services.index';
+import { VerificaTokenGuard } from '../services/services.index';
 import { AdminGuard } from '../services/services.index';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
@@ -13,6 +11,8 @@ import { ProyectoComponent } from './proyectos/proyecto.component';
 import { ActividadesComponent } from './actividades/actividades.component';
 import { ActualizarContraseniaComponent } from './usuarios/actualizar-contrasenia.component';
 import { CalendarioComponent } from './calendario/calendario.component';
+import { GraficaProyectoComponent } from './graficas/grafica-proyecto.component';
+import { GraficaUsuarioComponent } from './graficas/grafica-usuario.component';
 
 export const pagesRoutes: Routes = [
   {
@@ -22,6 +22,9 @@ export const pagesRoutes: Routes = [
     canActivate: [VerificaTokenGuard]
   },
   { path: 'calendario', component: CalendarioComponent, data: { titulo: 'Calendario' } },
+  { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de usuario'} },
+  { path: 'grafica-proyecto', component: GraficaProyectoComponent, data: { titulo: 'Gráfica Proyecto'} },
+  { path: 'grafica-usuario', component: GraficaUsuarioComponent, data: { titulo: 'Gráfica Usuario'} },
   { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil de usuario'} },
   { path: 'actualizar-contrasenia', component: ActualizarContraseniaComponent, data: { titulo: 'Actualizar contraseña'} },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },

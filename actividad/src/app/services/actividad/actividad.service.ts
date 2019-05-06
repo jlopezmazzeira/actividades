@@ -47,7 +47,8 @@ export class ActividadService {
   }
 
   cargarActividades(desde: number = 0) {
-    const url = URL_SERVICIOS + '/actividad?desde=' + desde;
+    let url = URL_SERVICIOS + '/actividad?desde=' + desde;
+    url += '&token=' + this._serviceUsuario.token;
 
     return this.http.get(url);
 

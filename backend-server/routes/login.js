@@ -195,6 +195,14 @@ function obtenerMenu(ROLE) {
             ]
         },
         {
+            titulo: 'Gráficas',
+            icono: 'mdi mdi-chart-pie',
+            submenu: [
+                { titulo: 'Proyecto', url: '/grafica-proyecto' },
+                { titulo: 'Usuario', url: '/grafica-usuario' }
+            ]
+        },
+        {
             titulo: 'Mantenimientos',
             icono: 'mdi mdi-folder-lock-open',
             submenu: [
@@ -205,7 +213,7 @@ function obtenerMenu(ROLE) {
     ];
 
     if (ROLE === 'ADMIN_ROLE') {
-        menu[1].submenu.unshift({ titulo: 'Usuarios', url: '/usuarios' });
+        menu[2].submenu.unshift({ titulo: 'Usuarios', url: '/usuarios' });
     }
     return menu;
 }

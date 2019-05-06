@@ -9,7 +9,7 @@ var Proyecto = require('../models/proyecto');
 // =====================================
 // OBTENER TODOS LOS PROYECTOS
 // =====================================
-app.get('/', (req, resp, next) => {
+app.get('/', mdAutenticacion.verificaToken, (req, resp, next) => {
 
     var desde = req.query.desde || 0;
     desde = Number(desde);
@@ -18,6 +18,36 @@ app.get('/', (req, resp, next) => {
         .skip(desde)
         .limit(5)
         .populate('actividades', 'nombre _id')
+        .exec(
+            (err, proyectos) => {
+                if (err) {
+                    return resp.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando proyectos',
+                        errors: err
+                    });
+                }
+
+                Proyecto.count({}, (err, conteo) => {
+                    resp.status(200).json({
+                        ok: true,
+                        proyectos: proyectos,
+                        total: conteo
+                    });
+                });
+            }
+        );
+});
+
+// =====================================
+// OBTENER TODOS LOS PROYECTOS - GRÁFICA
+// =====================================
+app.get('/todos-proyectos', mdAutenticacion.verificaToken, (req, resp, next) => {
+
+    var desde = req.query.desde || 0;
+    desde = Number(desde);
+
+    Proyecto.find({})
         .exec(
             (err, proyectos) => {
                 if (err) {

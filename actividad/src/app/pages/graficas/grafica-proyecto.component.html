@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                {{ leyenda }} <strong>{{ proyectoObtenido.nombre }}</strong>
+                <select class="form-control" name="proyectoSelecionado" [(ngModel)]="proyectoSeleccionado" (change)="mostrarGraficaProyecto()">
+                  <option value="">Seleccione proyecto</option>
+                  <option *ngFor="let proyecto of proyectos" value="{{proyecto._id}}">{{ proyecto.nombre }}</option>
+                </select>
+                <canvas *ngIf="proyectoSeleccionado" baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"></canvas>
+                <div class="row" *ngIf="proyectoSeleccionado">
+                    <div class="col-md-4">
+                        <p>
+                            <label>Código: </label>
+                            <span>{{ proyectoObtenido.codigo }}</span>
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>
+                            <label>Cantidad de Horas: </label>
+                            <span>{{ proyectoObtenido.cantidadHoras}} hrs.</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" *ngIf="proyectoSeleccionado">
+                    <div class="col-md-4">
+                        <p>
+                            <label>Fecha de Inicio: </label>
+                            <span>{{ proyectoObtenido.fechaInicio | fecha }}</span>
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>
+                            <label>Fecha de Termino: </label>
+                            <span>{{ proyectoObtenido.fechaTermino | fecha }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -50,7 +50,12 @@ export class HorasTrabajoService {
     return this.http.delete(url);
   }
 
-  obtenerHorasTrabajoProyecto() { }
+  obtenerHorasTrabajoProyecto(id: string) {
+    let url = URL_SERVICIOS + '/horasActividades/horas-proyecto/' + id;
+    url += '?token=' + this._serviceUsuario.token;
+
+    return this.http.get(url);
+  }
 
   obtenerHoraTrabajo(id: string) {
     let url = URL_SERVICIOS + '/horasActividades/' + id;

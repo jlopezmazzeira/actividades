@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OptionsInput } from '@fullcalendar/core';
+import { EventInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import esLocale from '@fullcalendar/core/locales/es';
-import { CalendarComponent } from 'ng-fullcalendar';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 import { ModalActividadService } from '../../components/modal-actividad/modal-actividad.service';
 import { HorasTrabajoService } from '../../services/services.index';
 import { ModalActividadComponent } from '../../components/modal-actividad/modal-actividad.component';
@@ -15,9 +15,21 @@ import { ModalActividadComponent } from '../../components/modal-actividad/modal-
 })
 export class CalendarioComponent implements OnInit {
 
-  options: OptionsInput;
-  events: any[] = [];
-  @ViewChild('fullcalendar') fullcalendar: CalendarComponent;
+  // Configuración Calendario
+  events: EventInput[] = [];
+  @ViewChild('fullcalendar') fullcalendar: FullCalendarComponent;
+  calendarPlugins = [dayGridPlugin, interactionPlugin];
+  calendarLocale = esLocale;
+  calendarWeekends = true;
+  calendarVisible = true;
+  eventLimit = true;
+  validRange = { end: new Date() };
+  header = {
+    left: 'prev,next today',
+    center: 'title',
+    right: 'timeGridWeek,timeGridDay,listWeek'
+  };
+
   @ViewChild(ModalActividadComponent) modalActividad: ModalActividadComponent;
   cargando = true;
   desde = 0;
@@ -32,23 +44,6 @@ export class CalendarioComponent implements OnInit {
       this.clearEvents();
       this.loadEvents();
     });
-
-    this.options = {
-      editable: false,
-      eventLimit: true,
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay,listMonth'
-      },
-      selectable: true,
-      locale: esLocale,
-      validRange: {
-        end: new Date()
-      },
-      events: [],
-      plugins: [ dayGridPlugin, interactionPlugin ]
-    };
 
     this.loadEvents();
   }
@@ -73,7 +68,7 @@ export class CalendarioComponent implements OnInit {
   }
 
   clearEvents() {
-    this.fullcalendar.eventsModel = [];
+    this.fullcalendar.events = [];
   }
 
   eventClick(info) {
@@ -90,9 +85,11 @@ export class CalendarioComponent implements OnInit {
     this._serviceModalActividad.mostrarModal('add', date);
   }
 
-  fechaTrabajo(dia) {
-    const dateObj = new Date(dia);
-    return dateObj.getUTCFullYear() + '-' + (dateObj.getUTCMonth() + 1) + '-' + dateObj.getUTCDate();
+  fechaTrabajo(diaT) {
+    const dateObj = new Date(diaT);
+    const dia = (dateObj.getUTCDate() < 10) ? '0' + dateObj.getUTCDate() : dateObj.getUTCDate();
+    const mes = (dateObj.getUTCMonth() < 10) ? '0' + (dateObj.getUTCMonth() + 1) : (dateObj.getUTCMonth() + 1);
+    return dateObj.getUTCFullYear() + '-' + mes + '-' + dia;
   }
 
 }

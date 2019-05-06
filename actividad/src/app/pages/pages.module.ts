@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 // Modulos
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { ChartsModule } from 'ng2-charts';
+import { ChartsModule } from 'ng2-charts';
+
 // Rutas
 import { PAGES_ROUTES } from './pages.routes';
 
@@ -12,8 +13,7 @@ import { PAGES_ROUTES } from './pages.routes';
 import { PipesModule } from '../pipes/pipes.module';
 
 // Calendario
-import { FullCalendarModule } from 'ng-fullcalendar';
-
+import { FullCalendarModule } from '@fullcalendar/angular';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
@@ -23,10 +23,11 @@ import { UsuarioComponent } from './usuarios/usuario.component';
 import { ActividadesComponent } from './actividades/actividades.component';
 import { ActualizarContraseniaComponent } from './usuarios/actualizar-contrasenia.component';
 import { CalendarioComponent } from './calendario/calendario.component';
+import { GraficaProyectoComponent } from './graficas/grafica-proyecto.component';
+import { GraficaUsuarioComponent } from './graficas/grafica-usuario.component';
 
 @NgModule({
   declarations: [
-    // PagesComponent,
     DashboardComponent,
     ProfileComponent,
     UsuariosComponent,
@@ -36,13 +37,12 @@ import { CalendarioComponent } from './calendario/calendario.component';
     UsuarioComponent,
     ActividadesComponent,
     ActualizarContraseniaComponent,
-    CalendarioComponent
+    CalendarioComponent,
+    GraficaProyectoComponent,
+    GraficaUsuarioComponent
   ],
   exports: [
-    // PagesComponent,
-    DashboardComponent,
-    // ProgressComponent,
-    // Graficas1Component
+    DashboardComponent
   ],
   imports: [
     CommonModule,
@@ -51,8 +51,8 @@ import { CalendarioComponent } from './calendario/calendario.component';
     FormsModule,
     ReactiveFormsModule,
     PipesModule,
-    FullCalendarModule
-    // ChartsModule,
+    FullCalendarModule,
+    ChartsModule
   ]
 
 })
