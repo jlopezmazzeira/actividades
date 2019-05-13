@@ -60,7 +60,7 @@
                             <td>{{indice + 1}}</td>
                             <td>{{actividad.nombre}}</td>
                             <td>
-                                <ui-switch [checked]="false" switchColor="#fcfcfc" size="large" labelOn="Asignar" labelOff="Eliminar"></ui-switch>
+                                <ui-switch [checked]="false" switchColor="#fcfcfc" size="large" labelOn="Asignar" labelOff="Eliminar" (change)="onChange($event, actividad._id)" ></ui-switch>
                             </td>
                         </tr>
                     </tbody>

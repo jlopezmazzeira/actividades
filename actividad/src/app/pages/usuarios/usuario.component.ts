@@ -107,4 +107,21 @@ export class UsuarioComponent implements OnInit {
     });
   }
 
+  onChange(asignar: boolean, proyecto: string){
+    console.log(asignar);
+    console.log(proyecto);
+
+    if (asignar) {
+      this._serviceUsuario.asignarProyectoUsuario(this.usuario._id, proyecto)
+      .subscribe((resp: any) => {
+        console.log(resp);
+      });
+    } else {
+      this._serviceUsuario.eliminarProyectoAsignado(this.usuario._id, proyecto)
+      .subscribe((resp: any) => {
+        console.log(resp);
+      });
+    }
+  }
+
 }

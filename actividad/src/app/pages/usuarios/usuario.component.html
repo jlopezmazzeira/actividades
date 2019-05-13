@@ -56,8 +56,7 @@
                             <td>{{ proyecto.codigo }}</td>
                             <td>{{ proyecto.nombre }}</td>
                             <td>
-                                <!-- <ui-switch (change)="onChange($event)"></ui-switch> -->
-                                <ui-switch [checked]="false" switchColor="#fcfcfc" size="large" labelOn="Asignar" labelOff="Eliminar"></ui-switch>
+                                <ui-switch [checked]="false" switchColor="#fcfcfc" size="large" labelOn="Asignar" labelOff="Eliminar" (change)="onChange($event, proyecto._id)"></ui-switch>
                             </td>
                         </tr>
                     </tbody>

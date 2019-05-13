@@ -43,6 +43,7 @@ export class ProyectoComponent implements OnInit {
     this._serviceProyecto.cargarProyecto(id)
     .subscribe( proyecto => {
       this.proyecto = proyecto;
+      console.log(this.proyecto);
       // this.medico.hospital = medico.hospital._id;
       // this.cambioHospital(this.medico.hospital);
     });
@@ -108,6 +109,23 @@ export class ProyectoComponent implements OnInit {
         this.actividades = actividades;
         this.cargando = false;
     });
+  }
+
+  onChange(asignar: boolean, actividad: string){
+    console.log(asignar);
+    console.log(actividad);
+
+    if (asignar) {
+      this._serviceProyecto.asignarActividadesProyecto(this.proyecto._id, actividad)
+      .subscribe((resp: any) => {
+        console.log(resp);
+      });
+    } else {
+      this._serviceProyecto.eliminarActividadAsignada(this.proyecto._id, actividad)
+      .subscribe((resp: any) => {
+        console.log(resp);
+      });
+    }
   }
 
 }

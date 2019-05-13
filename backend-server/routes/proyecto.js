@@ -230,16 +230,7 @@ app.put('/asignar-actividades/:id', mdAutenticacion.verificaToken, (req, resp) =
 
     var body = req.body;
 
-    var actividades = body.actividades;
-    actividades = JSON.parse(actividades);
-
-    if (actividades.length == 0) {
-        return resp.status(400).json({
-            ok: false,
-            mensaje: 'Debes seleccionar una actividad para el proyecto',
-            errors: { message: 'No hay actividades' }
-        });
-    }
+    var actividad = body.actividad;
 
     Proyecto.findById(id, (err, proyecto) => {
         if (err) {
@@ -258,12 +249,7 @@ app.put('/asignar-actividades/:id', mdAutenticacion.verificaToken, (req, resp) =
             });
         }
 
-        proyecto.actividades = [];
-
-        for (var indice in actividades) {
-            var actividad = actividades[indice];
-            proyecto.actividades.push(actividad);
-        }
+        proyecto.actividades.push(actividad);
 
         proyecto.save((err, proyectoGuardado) => {
             if (err) {
@@ -288,5 +274,53 @@ app.put('/asignar-actividades/:id', mdAutenticacion.verificaToken, (req, resp) =
 // =====================================
 // Eliminar ACTIVIDAD PROYECTO
 // =====================================
+app.put('/eliminar-actividad/:id', mdAutenticacion.verificaToken, (req, resp) => {
 
+    var id = req.params.id;
+
+    var body = req.body;
+
+    var actividad = body.actividad;
+
+    Proyecto.findById(id, (err, proyecto) => {
+        if (err) {
+            return resp.status(500).json({
+                ok: false,
+                mensaje: 'Error al buscar proyecto',
+                errors: err
+            });
+        }
+
+        if (!proyecto) {
+            return resp.status(400).json({
+                ok: false,
+                mensaje: 'El proyecto con el id ' + id + ' no existe',
+                errors: { message: 'No existe el proyecto con ese ID' }
+            });
+        }
+
+        var index =  proyecto.actividades.indexOf(actividad);
+        if (index > -1) {
+            proyecto.actividades.splice(index, 1);
+        }
+
+        proyecto.save((err, proyectoGuardado) => {
+            if (err) {
+                return resp.status(400).json({
+                    ok: false,
+                    mensaje: 'Error al actualizar proyecto',
+                    errors: err
+                });
+            }
+
+            resp.status(200).json({
+                ok: true,
+                proyecto: proyectoGuardado
+            });
+
+        });
+
+    });
+
+});
 module.exports = app;

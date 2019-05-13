@@ -253,16 +253,7 @@ app.put('/asignar-proyectos/:id', mdAutenticacion.verificaToken, (req, resp) => 
 
     var body = req.body;
 
-    var proyectos = body.proyectos;
-    proyectos = JSON.parse(proyectos);
-
-    if (proyectos.length == 0) {
-        return resp.status(400).json({
-            ok: false,
-            mensaje: 'Debes seleccionar un proyecto para el usuario',
-            errors: { message: 'No hay proyectos' }
-        });
-    }
+    var proyecto = body.proyecto;
 
     Usuario.findById(id, (err, usuario) => {
         if (err) {
@@ -281,12 +272,7 @@ app.put('/asignar-proyectos/:id', mdAutenticacion.verificaToken, (req, resp) => 
             });
         }
 
-        usuario.proyectos = [];
-
-        for (var indice in proyectos) {
-            var proyecto = proyectos[indice];
-            usuario.proyectos.push(proyecto);
-        }
+        usuario.proyectos.push(proyecto);
 
         usuario.save((err, usuarioGuardado) => {
             if (err) {
@@ -313,5 +299,55 @@ app.put('/asignar-proyectos/:id', mdAutenticacion.verificaToken, (req, resp) => 
 // =====================================
 // Eliminar PROYECTO ASIGNADO
 // =====================================
+app.put('/eliminar-proyecto/:id', mdAutenticacion.verificaToken, (req, resp) => {
 
+    var id = req.params.id;
+
+    var body = req.body;
+
+    var proyecto = body.proyecto;
+
+    Usuario.findById(id, (err, usuario) => {
+        if (err) {
+            return resp.status(500).json({
+                ok: false,
+                mensaje: 'Error al buscar usuario',
+                errors: err
+            });
+        }
+
+        if (!usuario) {
+            return resp.status(400).json({
+                ok: false,
+                mensaje: 'El usuario con el id ' + id + ' no existe',
+                errors: { message: 'No existe el usuario con ese ID' }
+            });
+        }
+
+        var index =  usuario.proyectos.indexOf(proyecto);
+        if (index > -1) {
+            usuario.proyectos.splice(index, 1);
+        }
+
+        usuario.save((err, usuarioGuardado) => {
+            if (err) {
+                return resp.status(400).json({
+                    ok: false,
+                    mensaje: 'Error al actualizar usuario',
+                    errors: err
+                });
+            }
+
+            usuarioGuardado.password = ':)';
+
+            resp.status(200).json({
+                ok: true,
+                usuario: usuarioGuardado
+            });
+
+        });
+
+    });
+
+});
 module.exports = app;

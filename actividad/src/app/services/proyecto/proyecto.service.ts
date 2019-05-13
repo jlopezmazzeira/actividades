@@ -71,17 +71,23 @@ export class ProyectoService {
     }));
   }
 
-  asignarActividadesProyecto(id: string, actividades: Array<String>) {
-    let url = URL_SERVICIOS + '/asignar-actividades/' + id;
+  asignarActividadesProyecto(id: string, actividad: string) {
+    let url = URL_SERVICIOS + '/proyecto/asignar-actividades/' + id;
     url += '?token=' + this._serviceUsuario.token;
 
-    return this.http.put(url, actividades).pipe(map((resp: any) => {
-      swal('Actividades asignadas', resp.proyecto.nombre, 'success');
+    return this.http.put(url, {'actividad': actividad}).pipe(map((resp: any) => {
       return resp.proyecto;
     }));
   }
 
-  eliminarActividadAsignada(actividad: string) { }
+  eliminarActividadAsignada(id: string, actividad: string) {
+    let url = URL_SERVICIOS + '/proyecto/eliminar-actividad/' + id;
+    url += '?token=' + this._serviceUsuario.token;
+
+    return this.http.put(url, {'actividad': actividad}).pipe(map((resp: any) => {
+      return resp.proyecto;
+    }));
+  }
 
   cargarProyecto(id: string) {
     let url = URL_SERVICIOS + '/proyecto/' + id;
