@@ -58,3 +58,11 @@
 .fc th.fc-sun {
     background: #2C3E50 !important;
 }
+
+.switch-large.checked[_ngcontent-c1] small[_ngcontent-c1] {
+    left: 79px !important;
+}
+
+.switch-large[_ngcontent-c1] {
+    width: 120px !important;
+}

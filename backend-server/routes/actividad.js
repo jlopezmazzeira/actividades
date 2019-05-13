@@ -16,7 +16,7 @@ app.get('/', mdAutenticacion.verificaToken, (req, resp, next) => {
 
     Actividad.find({})
         .skip(desde)
-        .limit(5)
+        .limit(10)
         .exec(
             (err, actividades) => {
                 if (err) {

@@ -16,7 +16,7 @@ app.get('/', mdAutenticacion.verificaToken, (req, resp, next) => {
 
     Proyecto.find({})
         .skip(desde)
-        .limit(5)
+        .limit(10)
         .populate('actividades', 'nombre _id')
         .exec(
             (err, proyectos) => {

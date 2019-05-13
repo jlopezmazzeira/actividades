@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
+import { UiSwitchModule } from 'ngx-toggle-switch';
 
 // Rutas
 import { PAGES_ROUTES } from './pages.routes';
@@ -52,7 +53,8 @@ import { GraficaUsuarioComponent } from './graficas/grafica-usuario.component';
     ReactiveFormsModule,
     PipesModule,
     FullCalendarModule,
-    ChartsModule
+    ChartsModule,
+    UiSwitchModule
   ]
 
 })

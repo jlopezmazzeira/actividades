@@ -48,7 +48,7 @@
                         <tr>
                             <th>Código</th>
                             <th>Nombre</th>
-                            <th></th>
+                            <th>Asignar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,14 +56,16 @@
                             <td>{{ proyecto.codigo }}</td>
                             <td>{{ proyecto.nombre }}</td>
                             <td>
+                                <!-- <ui-switch (change)="onChange($event)"></ui-switch> -->
+                                <ui-switch [checked]="false" switchColor="#fcfcfc" size="large" labelOn="Asignar" labelOff="Eliminar"></ui-switch>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <button (click)="cambiarDesde(-5)" class="btn btn-secondary">
+                <button (click)="cambiarDesde(-10)" class="btn btn-secondary">
                     Anteriores
                 </button>
-                <button (click)="cambiarDesde(5)" class="btn btn-secondary ml-2">
+                <button (click)="cambiarDesde(10)" class="btn btn-secondary ml-2">
                     Siguientes
                 </button>
             </div>

@@ -17,7 +17,7 @@ app.get('/', mdAutenticacion.verificaToken, (req, resp, next) => {
 
     Usuario.find({}, 'nombre correo username img role')
         .skip(desde)
-        .limit(5)
+        .limit(10)
         .populate('proyectos', 'codigo nombre _id')
         .exec(
             (err, usuarios) => {

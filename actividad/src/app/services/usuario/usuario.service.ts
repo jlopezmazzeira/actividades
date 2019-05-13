@@ -185,7 +185,8 @@ export class UsuarioService {
   }
 
   cargarUsuarios(desde: number = 0) {
-    const url = URL_SERVICIOS + '/usuario?desde=' + desde;
+    let url = URL_SERVICIOS + '/usuario?desde=' + desde;
+    url += '&token=' + this.token;
 
     return this.http.get(url);
   }
