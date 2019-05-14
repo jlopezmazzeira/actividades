@@ -111,7 +111,7 @@ export class ProyectoComponent implements OnInit {
     });
   }
 
-  onChange(asignar: boolean, actividad: string){
+  onChange(asignar: boolean, actividad: string) {
     console.log(asignar);
     console.log(actividad);
 
@@ -127,5 +127,7 @@ export class ProyectoComponent implements OnInit {
       });
     }
   }
+
+  verificarActividades() { }
 
 }

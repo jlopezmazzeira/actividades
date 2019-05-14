@@ -7,6 +7,7 @@ var proyectoSchema = new Schema({
     fechaInicio: { type: String, required: false },
     fechaTermino: { type: String, required: false },
     cantidadHoras: { type: Number, required: false, default: 0 },
+    asignado: { type: Boolean, required: false, default: false },
     actividades: [{ type: Schema.Types.ObjectId, ref: 'Actividad' }]
 }, { collection: 'proyectos' });
 

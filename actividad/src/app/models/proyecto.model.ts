@@ -6,6 +6,7 @@ export class Proyecto {
         public fechaInicio?: string,
         public fechaTermino?: string,
         public cantidadHoras?: number,
-        public actividades?: Array<any>
+        public actividades?: Array<any>,
+        public asignado?: Boolean
     ) {}
 }

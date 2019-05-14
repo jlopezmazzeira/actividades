@@ -107,7 +107,7 @@ export class UsuarioComponent implements OnInit {
     });
   }
 
-  onChange(asignar: boolean, proyecto: string){
+  onChange(asignar: boolean, proyecto: string) {
     console.log(asignar);
     console.log(proyecto);
 
@@ -123,5 +123,7 @@ export class UsuarioComponent implements OnInit {
       });
     }
   }
+
+  verificarActividades() { }
 
 }
