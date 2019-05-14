@@ -42,8 +42,6 @@ export class UsuarioComponent implements OnInit {
     this._serviceUsuario.cargarUsuario(id)
     .subscribe( usuario => {
       this.usuario = usuario;
-      // this.medico.hospital = medico.hospital._id;
-      // this.cambioHospital(this.medico.hospital);
     });
   }
 
@@ -71,6 +69,7 @@ export class UsuarioComponent implements OnInit {
       (resp: any) => {
         this.totalRegistros = resp.total;
         this.proyectos = resp.proyectos;
+        this.verificarProyectos();
         this.cargando = false;
       });
   }
@@ -108,22 +107,28 @@ export class UsuarioComponent implements OnInit {
   }
 
   onChange(asignar: boolean, proyecto: string) {
-    console.log(asignar);
-    console.log(proyecto);
 
     if (asignar) {
       this._serviceUsuario.asignarProyectoUsuario(this.usuario._id, proyecto)
       .subscribe((resp: any) => {
-        console.log(resp);
+        this.verificarProyectos();
       });
     } else {
       this._serviceUsuario.eliminarProyectoAsignado(this.usuario._id, proyecto)
       .subscribe((resp: any) => {
-        console.log(resp);
+        this.verificarProyectos();
       });
     }
   }
 
-  verificarActividades() { }
+  verificarProyectos() {
+    for (const proyectoU of this.usuario.proyectos) {
+      for (const proyecto of this.proyectos) {
+        if (proyecto._id === proyectoU._id) {
+          proyecto.asignado = true;
+        }
+      }
+    }
+  }
 
 }

@@ -43,9 +43,6 @@ export class ProyectoComponent implements OnInit {
     this._serviceProyecto.cargarProyecto(id)
     .subscribe( proyecto => {
       this.proyecto = proyecto;
-      console.log(this.proyecto);
-      // this.medico.hospital = medico.hospital._id;
-      // this.cambioHospital(this.medico.hospital);
     });
   }
 
@@ -75,6 +72,7 @@ export class ProyectoComponent implements OnInit {
       (resp: any) => {
         this.totalRegistros = resp.total;
         this.actividades = resp.actividades;
+        this.verificarActividades();
         this.cargando = false;
       });
   }
@@ -112,22 +110,27 @@ export class ProyectoComponent implements OnInit {
   }
 
   onChange(asignar: boolean, actividad: string) {
-    console.log(asignar);
-    console.log(actividad);
-
     if (asignar) {
       this._serviceProyecto.asignarActividadesProyecto(this.proyecto._id, actividad)
       .subscribe((resp: any) => {
-        console.log(resp);
+        this.verificarActividades();
       });
     } else {
       this._serviceProyecto.eliminarActividadAsignada(this.proyecto._id, actividad)
       .subscribe((resp: any) => {
-        console.log(resp);
+        this.verificarActividades();
       });
     }
   }
 
-  verificarActividades() { }
+  verificarActividades() {
+    for (const actividadP of this.proyecto.actividades) {
+      for (const actividad of this.actividades) {
+        if (actividad._id === actividadP._id) {
+          actividad.asignada = true;
+        }
+      }
+    }
+  }
 
 }
