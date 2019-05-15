@@ -15,6 +15,7 @@ import { PipesModule } from '../pipes/pipes.module';
 
 // Calendario
 import { FullCalendarModule } from '@fullcalendar/angular';
+
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
@@ -26,6 +27,7 @@ import { ActualizarContraseniaComponent } from './usuarios/actualizar-contraseni
 import { CalendarioComponent } from './calendario/calendario.component';
 import { GraficaProyectoComponent } from './graficas/grafica-proyecto.component';
 import { GraficaUsuarioComponent } from './graficas/grafica-usuario.component';
+import { GraficaDonaComponent } from '../components/grafica-dona/grafica-dona.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { GraficaUsuarioComponent } from './graficas/grafica-usuario.component';
     ActualizarContraseniaComponent,
     CalendarioComponent,
     GraficaProyectoComponent,
-    GraficaUsuarioComponent
+    GraficaUsuarioComponent,
+    GraficaDonaComponent
   ],
   exports: [
     DashboardComponent

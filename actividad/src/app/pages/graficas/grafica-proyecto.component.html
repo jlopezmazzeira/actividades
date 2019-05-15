@@ -9,7 +9,11 @@
                 </select>
                 <div class="row">
                     <div class="col-6">
-                        <canvas *ngIf="proyectoSeleccionado" baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"></canvas>
+                        <app-grafica-dona *ngIf="proyectoSeleccionado"
+                          [doughnutChartLabels]="graficas.graficaHoras.labels"
+                          [doughnutChartData]="graficas.graficaHoras.data"
+                          [doughnutChartType]="graficas.graficaHoras.type"></app-grafica-dona>
+
                         <div class="row" *ngIf="proyectoSeleccionado">
                             <div class="col-md-6">
                                 <p>
@@ -40,7 +44,10 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <canvas *ngIf="proyectoSeleccionado" baseChart [data]="doughnutChartDataP" [labels]="doughnutChartLabelsP" [chartType]="doughnutChartType"></canvas>
+                        <app-grafica-dona *ngIf="proyectoSeleccionado"
+                          [doughnutChartLabels]="graficas.graficaPorcentaje.labels"
+                          [doughnutChartData]="graficas.graficaPorcentaje.data"
+                          [doughnutChartType]="graficas.graficaPorcentaje.type"></app-grafica-dona>
                         <div class="row" *ngIf="proyectoSeleccionado">
                             <div class="col-md-4">
                                 <p>

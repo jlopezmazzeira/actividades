@@ -10,11 +10,7 @@ import { Proyecto } from '../../models/proyecto.model';
 export class GraficaProyectoComponent implements OnInit {
 
   leyenda = 'Horas Trabajas - Proyecto: ';
-  @Input() doughnutChartLabels: string[] = ['Horas trabajadas', 'Horas faltantes'];
-  @Input() doughnutChartLabelsP: string[] = ['Porcentaje trabajado', 'Porcentaje faltante'];
-  @Input() doughnutChartData: number[] = [];
-  @Input() doughnutChartDataP: number[] = [];
-  @Input() doughnutChartType = 'doughnut';
+  graficas: any = {};
 
   proyectos: Proyecto[] = [];
   proyectoObtenido: Proyecto = new Proyecto('', '', '');
@@ -53,13 +49,28 @@ export class GraficaProyectoComponent implements OnInit {
         for (const hora of horasProyecto) {
           totalHoras += hora.cantidad;
         }
-
         const horasRestantes = this.proyectoObtenido.cantidadHoras - totalHoras;
-        this.doughnutChartData = [totalHoras, horasRestantes];
 
-        this.horasPorcentaje = Math.round(this.proyectoObtenido.cantidadHoras / totalHoras);
+        if (totalHoras === 0) {
+          this.horasPorcentaje = 0;
+        } else {
+          this.horasPorcentaje = Math.round(this.proyectoObtenido.cantidadHoras / totalHoras);
+        }
+
         this.porcentajeFaltante = 100 - this.horasPorcentaje;
-        this.doughnutChartDataP = [this.horasPorcentaje, this.porcentajeFaltante];
+
+        this.graficas = {
+          'graficaHoras': {
+            'labels': ['Horas trabajadas', 'Horas faltantes'],
+            'data':  [totalHoras, horasRestantes],
+            'type': 'doughnut'
+          },
+          'graficaPorcentaje': {
+            'labels': ['Porcentaje trabajado', 'Porcentaje faltante'],
+            'data':  [this.horasPorcentaje, this.porcentajeFaltante],
+            'type': 'doughnut'
+          }
+        }
       });
     });
 
