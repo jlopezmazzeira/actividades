@@ -11,13 +11,17 @@ export class GraficaProyectoComponent implements OnInit {
 
   leyenda = 'Horas Trabajas - Proyecto: ';
   @Input() doughnutChartLabels: string[] = ['Horas trabajadas', 'Horas faltantes'];
-  @Input() doughnutChartData: number[] = [54, 46];
+  @Input() doughnutChartLabelsP: string[] = ['Porcentaje trabajado', 'Porcentaje faltante'];
+  @Input() doughnutChartData: number[] = [];
+  @Input() doughnutChartDataP: number[] = [];
   @Input() doughnutChartType = 'doughnut';
 
   proyectos: Proyecto[] = [];
   proyectoObtenido: Proyecto = new Proyecto('', '', '');
   cargando = true;
   proyectoSeleccionado = '';
+  horasPorcentaje = 0;
+  porcentajeFaltante = 0;
 
   constructor(public _serviceProyecto: ProyectoService,
               public _serviceHorasTrabajo: HorasTrabajoService) { }
@@ -52,6 +56,10 @@ export class GraficaProyectoComponent implements OnInit {
 
         const horasRestantes = this.proyectoObtenido.cantidadHoras - totalHoras;
         this.doughnutChartData = [totalHoras, horasRestantes];
+
+        this.horasPorcentaje = Math.round(this.proyectoObtenido.cantidadHoras / totalHoras);
+        this.porcentajeFaltante = 100 - this.horasPorcentaje;
+        this.doughnutChartDataP = [this.horasPorcentaje, this.porcentajeFaltante];
       });
     });
 
