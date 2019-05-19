@@ -324,7 +324,7 @@ app.put('/eliminar-proyecto/:id', mdAutenticacion.verificaToken, (req, resp) => 
             });
         }
 
-        var index =  usuario.proyectos.indexOf(proyecto);
+        var index = usuario.proyectos.indexOf(proyecto);
         if (index > -1) {
             usuario.proyectos.splice(index, 1);
         }
@@ -349,5 +349,32 @@ app.put('/eliminar-proyecto/:id', mdAutenticacion.verificaToken, (req, resp) => 
 
     });
 
+});
+
+// =====================================
+// OBTENER TODOS LOS USUARIOS - GRÁFICA
+// =====================================
+app.get('/todos', mdAutenticacion.verificaToken, (req, resp, next) => {
+
+    Usuario.find({})
+        .exec(
+            (err, usuarios) => {
+                if (err) {
+                    return resp.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando usuarios',
+                        errors: err
+                    });
+                }
+
+                Usuario.count({}, (err, conteo) => {
+                    resp.status(200).json({
+                        ok: true,
+                        usuarios: usuarios,
+                        total: conteo
+                    });
+                });
+            }
+        );
 });
 module.exports = app;

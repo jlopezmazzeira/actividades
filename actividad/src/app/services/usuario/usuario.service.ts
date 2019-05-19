@@ -271,4 +271,10 @@ export class UsuarioService {
     }));
   }
 
+  usuarios() {
+    let url = URL_SERVICIOS + '/usuario/todos';
+    url += '?token=' + this.token;
+    return this.http.get(url);
+  }
+
 }

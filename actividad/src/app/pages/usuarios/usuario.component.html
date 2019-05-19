@@ -4,20 +4,23 @@
             <h3 class="box-title m-b-0">Datos del usuario</h3>
             <div class="row">
                 <div class="col-sm-12 col-xs-12">
-                    <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarUsuario(f)">
+                    <form #f="ngForm" (ngSubmit)="guardarUsuario(f)">
                         <div class="form-group">
                             <label>Nombre del usuario</label>
-                            <input [(ngModel)]="usuario.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del usuario" required>
+                            <input #nombre="ngModel" [(ngModel)]="usuario.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del usuario" required>
+                            <span class="error" *ngIf="!nombre.valid && nombre.touched">El nombre es obligatorio</span>
                         </div>
                         <div class="form-group">
                             <label>Correo electrónico</label>
-                            <input [(ngModel)]="usuario.correo" name="correo" type="email" class="form-control" placeholder="Correo electrónico" required>
+                            <input #correo="ngModel" [(ngModel)]="usuario.correo" name="correo" type="email" class="form-control" placeholder="Correo electrónico" required>
+                            <span class="error" *ngIf="!correo.valid && correo.touched">El correo electrónico es obligatorio</span>
                         </div>
                         <div class="form-group">
                             <label>Username</label>
-                            <input [(ngModel)]="usuario.username" name="username" type="text" class="form-control" placeholder="Username" required>
+                            <input #username="ngModel" [(ngModel)]="usuario.username" name="username" type="text" class="form-control" placeholder="Username" required>
+                            <span class="error" *ngIf="!username.valid && username.touched">El username es obligatorio</span>
                         </div>
-                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+                        <button [disabled]="f.invalid" type="submit" class="btn btn-success waves-effect waves-light m-r-10">
                         <i class="fa fa-save"></i>
                         Guardar
                       </button>

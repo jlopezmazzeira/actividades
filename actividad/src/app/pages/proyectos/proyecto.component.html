@@ -4,14 +4,16 @@
             <h3 class="box-title m-b-0">Proyecto: {{ proyecto.nombre }}</h3>
             <div class="row">
                 <div class="col-sm-12 col-xs-12">
-                    <form #f="ngForm" ngNativeValidate (ngSubmit)="guardarProyecto(f)">
+                    <form #f="ngForm" (ngSubmit)="guardarProyecto(f)">
                         <div class="form-group">
                             <label>Código del proyecto</label>
-                            <input [(ngModel)]="proyecto.codigo" name="codigo" type="text" class="form-control" placeholder="Código del proyecto" required>
+                            <input #codigo="ngModel" [(ngModel)]="proyecto.codigo" name="codigo" type="text" class="form-control" placeholder="Código del proyecto" required>
+                            <span class="error" *ngIf="!codigo.valid && codigo.touched">El código es obligatorio</span>
                         </div>
                         <div class="form-group">
                             <label>Nombre del proyecto</label>
-                            <input [(ngModel)]="proyecto.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del proyecto" required>
+                            <input #nombre="ngModel" [(ngModel)]="proyecto.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del proyecto" required>
+                            <span class="error" *ngIf="!nombre.valid && nombre.touched">El nombre es obligatorio</span>
                         </div>
                         <div class="form-group">
                             <label>Fecha de inicio</label>
@@ -21,7 +23,7 @@
                             <label>Fecha de termino</label>
                             <input [(ngModel)]="proyecto.fechaTermino" name="fechaTermino" type="date" class="form-control">
                         </div>
-                        <button type="submit" class="btn btn-success waves-effect waves-light m-r-10">
+                        <button [disabled]="f.invalid" type="submit" class="btn btn-success waves-effect waves-light m-r-10">
                       <i class="fa fa-save"></i>
                       Guardar
                     </button>

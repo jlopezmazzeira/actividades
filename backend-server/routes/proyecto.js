@@ -44,9 +44,6 @@ app.get('/', mdAutenticacion.verificaToken, (req, resp, next) => {
 // =====================================
 app.get('/todos-proyectos', mdAutenticacion.verificaToken, (req, resp, next) => {
 
-    var desde = req.query.desde || 0;
-    desde = Number(desde);
-
     Proyecto.find({})
         .exec(
             (err, proyectos) => {
@@ -299,7 +296,7 @@ app.put('/eliminar-actividad/:id', mdAutenticacion.verificaToken, (req, resp) =>
             });
         }
 
-        var index =  proyecto.actividades.indexOf(actividad);
+        var index = proyecto.actividades.indexOf(actividad);
         if (index > -1) {
             proyecto.actividades.splice(index, 1);
         }

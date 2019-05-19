@@ -66,3 +66,7 @@
 .switch-large[_ngcontent-c1] {
     width: 120px !important;
 }
+
+.error {
+    color: red;
+}
