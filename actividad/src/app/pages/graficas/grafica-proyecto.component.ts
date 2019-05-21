@@ -70,7 +70,7 @@ export class GraficaProyectoComponent implements OnInit {
             'data':  [this.horasPorcentaje, this.porcentajeFaltante],
             'type': 'doughnut'
           }
-        }
+        };
       });
     });
 

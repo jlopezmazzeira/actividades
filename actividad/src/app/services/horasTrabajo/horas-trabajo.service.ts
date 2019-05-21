@@ -63,4 +63,14 @@ export class HorasTrabajoService {
 
     return this.http.get(url);
   }
+
+  obtenerHorasTrabajoUsuario(id: string, desde: string, hasta: string) {
+    let url = URL_SERVICIOS + '/horasTrabajadas/horas-usuario/' + id;
+    url += '?token=' + this._serviceUsuario.token;
+
+    return this.http.post(url, {'desde': desde, 'hasta': hasta})
+               .pipe(map((resp: any) => {
+                return resp;
+            }));
+  }
 }

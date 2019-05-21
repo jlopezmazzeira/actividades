@@ -32,7 +32,7 @@ app.get('/', mdAutenticacion.verificaToken, (req, resp) => {
                     });
                 }
 
-                DiasTrabajados.count({}, (err, conteo) => {
+                DiasTrabajados.countDocuments({}, (err, conteo) => {
                     resp.status(200).json({
                         ok: true,
                         diasTrabajados: diasTrabajados,
@@ -178,6 +178,52 @@ app.post('/:id', mdAutenticacion.verificaToken, (req, resp) => {
 
                         });
                     }
+                });
+        });
+});
+
+// =====================================
+// OBTENER HORAS USUARIO (DESDE - HASTA) 
+// =====================================
+app.post('/horas-usuario/:id', mdAutenticacion.verificaToken, (req, resp) => {
+    var id = req.params.id;
+    var body = req.body;
+
+    Usuario.findById(id)
+        .exec((err, usuario) => {
+            if (err) {
+                return resp.status(500).json({
+                    ok: false,
+                    mensaje: 'Error al buscar usuario',
+                    errors: err
+                });
+            }
+
+            if (!usuario) {
+                return resp.status(400).json({
+                    ok: false,
+                    mensaje: 'El usuario con el id ' + id + ' no existe',
+                    errors: { message: 'No existe el usuario con ese ID' }
+                });
+            }
+
+            DiasTrabajados.find({ usuario: usuario._id, dia: { $gte: body.desde, $lte: body.hasta } })
+                .populate('horasTrabajadas')
+                .exec((err, diasTrabajados) => {
+                    if (err) {
+                        return resp.status(500).json({
+                            ok: false,
+                            mensaje: 'Ha ocurrido un error, intente de nuevo',
+                            errors: err
+                        });
+                    }
+
+                    resp.status(201).json({
+                        ok: true,
+                        diasTrabajados: diasTrabajados,
+                        usuario: usuario
+                    });
+
                 });
         });
 });

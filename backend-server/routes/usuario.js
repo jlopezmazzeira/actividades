@@ -29,7 +29,34 @@ app.get('/', mdAutenticacion.verificaToken, (req, resp, next) => {
                     });
                 }
 
-                Usuario.count({}, (err, conteo) => {
+                Usuario.countDocuments({}, (err, conteo) => {
+                    resp.status(200).json({
+                        ok: true,
+                        usuarios: usuarios,
+                        total: conteo
+                    });
+                });
+            }
+        );
+});
+
+// =====================================
+// OBTENER TODOS LOS USUARIOS - GRÁFICA
+// =====================================
+app.get('/todos-usuarios', mdAutenticacion.verificaToken, (req, resp, next) => {
+
+    Usuario.find({}, 'nombre _id')
+        .exec(
+            (err, usuarios) => {
+                if (err) {
+                    return resp.status(500).json({
+                        ok: false,
+                        mensaje: 'Error cargando usuarios',
+                        errors: err
+                    });
+                }
+
+                Usuario.countDocuments({}, (err, conteo) => {
                     resp.status(200).json({
                         ok: true,
                         usuarios: usuarios,
@@ -244,6 +271,7 @@ app.put('/cambiar-password/:id', mdAutenticacion.verificaToken, (req, resp) => {
     });
 
 });
+
 // =====================================
 // ASIGNAR PROYECTOS USUARIO  
 // =====================================
@@ -297,7 +325,7 @@ app.put('/asignar-proyectos/:id', mdAutenticacion.verificaToken, (req, resp) => 
 });
 
 // =====================================
-// Eliminar PROYECTO ASIGNADO
+// ELIMINAR PROYECTO ASIGNADO
 // =====================================
 app.put('/eliminar-proyecto/:id', mdAutenticacion.verificaToken, (req, resp) => {
 
@@ -351,30 +379,4 @@ app.put('/eliminar-proyecto/:id', mdAutenticacion.verificaToken, (req, resp) => 
 
 });
 
-// =====================================
-// OBTENER TODOS LOS USUARIOS - GRÁFICA
-// =====================================
-app.get('/todos', mdAutenticacion.verificaToken, (req, resp, next) => {
-
-    Usuario.find({})
-        .exec(
-            (err, usuarios) => {
-                if (err) {
-                    return resp.status(500).json({
-                        ok: false,
-                        mensaje: 'Error cargando usuarios',
-                        errors: err
-                    });
-                }
-
-                Usuario.count({}, (err, conteo) => {
-                    resp.status(200).json({
-                        ok: true,
-                        usuarios: usuarios,
-                        total: conteo
-                    });
-                });
-            }
-        );
-});
 module.exports = app;

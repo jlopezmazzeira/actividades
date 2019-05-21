@@ -28,7 +28,7 @@ app.get('/', mdAutenticacion.verificaToken, (req, resp, next) => {
                     });
                 }
 
-                Proyecto.count({}, (err, conteo) => {
+                Proyecto.countDocuments({}, (err, conteo) => {
                     resp.status(200).json({
                         ok: true,
                         proyectos: proyectos,
@@ -55,7 +55,7 @@ app.get('/todos-proyectos', mdAutenticacion.verificaToken, (req, resp, next) => 
                     });
                 }
 
-                Proyecto.count({}, (err, conteo) => {
+                Proyecto.countDocuments({}, (err, conteo) => {
                     resp.status(200).json({
                         ok: true,
                         proyectos: proyectos,

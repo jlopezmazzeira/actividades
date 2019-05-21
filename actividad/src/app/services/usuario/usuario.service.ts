@@ -272,7 +272,7 @@ export class UsuarioService {
   }
 
   usuarios() {
-    let url = URL_SERVICIOS + '/usuario/todos';
+    let url = URL_SERVICIOS + '/usuario/todos-usuarios';
     url += '?token=' + this.token;
     return this.http.get(url);
   }

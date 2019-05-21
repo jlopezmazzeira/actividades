@@ -1,9 +1,36 @@
 <div class="row">
-    <div class="col-6">
+    <div class="col-12">
         <div class="card">
             <div class="card-body">
                 {{ leyenda }}
-                <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"></canvas>
+                <form #f="ngForm" (ngSubmit)="mostrarGraficaUsuario()">
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label>Usuario</label>
+                            <select class="form-control" name="usuarioSeleccionado" [(ngModel)]="usuarioSeleccionado">
+                                <option value="">Seleccione usuario</option>
+                                <option *ngFor="let usuario of usuarios" value="{{usuario._id}}">{{ usuario.nombre }}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Fecha desde</label>
+                            <input [(ngModel)]="fechaDesde" name="fechaDesde" type="date" class="form-control">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Fecha hasta</label>
+                            <input [(ngModel)]="fechaHasta" name="fechaHasta" type="date" class="form-control">
+                        </div>
+                        <div class="col-auto">
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary">Generar</button>
+                    </div>
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                </div>
             </div>
         </div>
     </div>

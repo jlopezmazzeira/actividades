@@ -27,7 +27,7 @@ app.get('/', mdAutenticacion.verificaToken, (req, resp, next) => {
                     });
                 }
 
-                Actividad.count({}, (err, conteo) => {
+                Actividad.countDocuments({}, (err, conteo) => {
                     resp.status(200).json({
                         ok: true,
                         actividades: actividades,
