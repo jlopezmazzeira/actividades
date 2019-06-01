@@ -49,12 +49,19 @@ export class GraficaProyectoComponent implements OnInit {
         for (const hora of horasProyecto) {
           totalHoras += hora.cantidad;
         }
-        const horasRestantes = this.proyectoObtenido.cantidadHoras - totalHoras;
+        
+        let horas = 0;
+        let horasRestantes = 0;
 
-        if (totalHoras === 0) {
+        if (this.proyectoObtenido.cantidadHoras !== 0) {
+          horasRestantes = this.proyectoObtenido.cantidadHoras - totalHoras;
+          horas = this.proyectoObtenido.cantidadHoras - horasRestantes;
+        }
+        
+        if (horas === 0) {
           this.horasPorcentaje = 0;
         } else {
-          this.horasPorcentaje = Math.round(this.proyectoObtenido.cantidadHoras / totalHoras);
+          this.horasPorcentaje = Math.round((horas * 100) / this.proyectoObtenido.cantidadHoras);
         }
 
         this.porcentajeFaltante = 100 - this.horasPorcentaje;

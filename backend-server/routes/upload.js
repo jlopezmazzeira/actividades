@@ -90,7 +90,13 @@ function subirPorTipo(tipo, id, nombreArchivo, res) {
 
             // Si existe, elimina la imagen anterior
             if (fs.existsSync(pathViejo)) {
-                fs.unlink(pathViejo);
+                fs.unlink(pathViejo, (err) => {
+                    if (err) {
+                        console.log("failed to delete local image:"+err);
+                    } else {
+                        console.log('successfully deleted local image');                                
+                    }
+                });
             }
 
             usuario.img = nombreArchivo;

@@ -28,8 +28,8 @@ export class ModalUploadComponent implements OnInit {
     this._modalUploadService.ocultarModal();
   }
 
-  seleccionImagen(e) {
-    const archivo = e.target.files[0];
+  seleccionImagen(archivo: File) {
+    // const archivo = e.target.files[0];
 
     if (archivo.type.indexOf('image') < 0) {
       this.imagenSubir = null;
@@ -37,13 +37,12 @@ export class ModalUploadComponent implements OnInit {
       return;
     }
 
-    const fileReader = new FileReader();
-    fileReader.onload = () => {
-      this.imagenTemp = fileReader.result;
-    };
-    fileReader.readAsDataURL(archivo);
     this.imagenSubir = archivo;
-    e.target.value = '';
+
+    const reader = new FileReader();
+    const urlImagenTemp = reader.readAsDataURL(archivo);
+
+    reader.onloadend = () => this.imagenTemp = reader.result;
 
    }
 

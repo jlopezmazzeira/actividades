@@ -105,6 +105,7 @@ export class ProyectoComponent implements OnInit {
     this._serviceActividad.buscarActividad(termino)
       .subscribe((actividades: Actividad[]) => {
         this.actividades = actividades;
+        this.verificarActividades();
         this.cargando = false;
     });
   }

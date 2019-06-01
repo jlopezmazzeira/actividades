@@ -102,6 +102,7 @@ export class UsuarioComponent implements OnInit {
     this._serviceProyecto.buscarProyecto(termino)
       .subscribe((proyectos: Proyecto[]) => {
         this.proyectos = proyectos;
+        this.verificarProyectos();
         this.cargando = false;
     });
   }
